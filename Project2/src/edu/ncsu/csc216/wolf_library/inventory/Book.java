@@ -43,7 +43,7 @@ public class Book implements Comparable<Book> {
         // Now build the rest of the title/info String
         String titleAuthor = "";
         while (fromFile.hasNext()) {
-            titleAuthor = titleAuthor + fromFile.next();
+            titleAuthor = titleAuthor + fromFile.next() + " ";
         }
 
         fromFile.close(); // Done with the scanner at this point
@@ -171,7 +171,7 @@ public class Book implements Comparable<Book> {
         if (second.startsWith("a")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
-                correctedInfo = correctedInfo + bookInfo.next(); // Build the
+                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
                                                                  // amended
                                                                  // title
             }
@@ -182,7 +182,7 @@ public class Book implements Comparable<Book> {
         else if (second.startsWith("an")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
-                correctedInfo = correctedInfo + bookInfo.next(); // Build the
+                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
                                                                  // amended
                                                                  // title
             }
@@ -193,7 +193,7 @@ public class Book implements Comparable<Book> {
         else if (second.startsWith("the")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
-                correctedInfo = correctedInfo + bookInfo.next(); // Build the
+                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
                                                                  // amended
                                                                  // title
             }
