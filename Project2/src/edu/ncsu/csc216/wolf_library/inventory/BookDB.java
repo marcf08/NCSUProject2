@@ -9,7 +9,7 @@ package edu.ncsu.csc216.wolf_library.inventory;
  */
 public class BookDB {
     /**
-     * The books data member is an array that holds the actual books from a file.
+     * The primary data member is a multi-purpose list developed in the wolf_library.util package.
      */
     private Book [] books;
     /**
