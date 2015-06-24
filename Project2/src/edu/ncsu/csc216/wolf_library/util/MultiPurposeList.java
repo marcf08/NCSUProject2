@@ -1,6 +1,8 @@
-package edu.ncsu.csc216.wolf_library.util;
+/**
+ * 
+ */
+
 import java.util.NoSuchElementException;
-import edu.ncsu.csc216.wolf_library.inventory.Book;
 
 /**
  * The multi purpose list creates a multi-purpose list that works like a linked
@@ -195,9 +197,12 @@ public class MultiPurposeList<T> {
 
             resetIterator(); // Reset the iterator for good measure
 
+            
+            
             // Navigate to the point of the operation
             while (head != null && pos >= 1) {
                 iterator = iterator.link;
+                Node other = new Node();
                 pos--;
             }
             
@@ -206,11 +211,6 @@ public class MultiPurposeList<T> {
 
                                   
             addItem(pos + 1,temp); //Add the original 
-            
-            
-            
-           
-            
 
         }
 
