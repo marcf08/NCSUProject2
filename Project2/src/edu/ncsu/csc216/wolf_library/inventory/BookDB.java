@@ -1,13 +1,9 @@
 package edu.ncsu.csc216.wolf_library.inventory;
 
-
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import edu.ncsu.csc216.wolf_library.util.*;
-
 
 /**
  * The book db class represents an internal book data base used by the Wolf
@@ -76,33 +72,36 @@ public class BookDB {
      *            a book to insert into the inventory
      */
     private void insertInOrder(Book book) {
-       if (books.isEmpty()) {
-           books.addToRear(book);
-       } else {
-           Book last = books.lookAtItem(books.size() - 1);
-           System.out.println("LAST: " + last.toString());
-           int compare = last.compareTo(book);
-           System.out.println("Compare: " + compare);
-           if (compare < 0) {
-               this.books.addItem(books.size(), book);
-               
-           } else {
-               
-               books.addToRear(book);
-              
-           }
-           
-           
-       }
-            
-        
-        
-        
-        
-        
-        
-        
-        
+        if (books.isEmpty()) {
+            books.addToRear(book);
+        } else if (books.size() == 2) {
+            Book early = books.lookAtItem(0);
+            Book firstTemp = null;
+            if (early.compareTo(book) > 0) {
+                firstTemp = books.lookAtItem(0);
+                books.remove(0);
+                books.addItem(0, book);
+                books.addToRear(firstTemp);
+            }
+        } else {
+            Book current = book;
+            Book prev = null;
+            Book temp = null;
+            int i = 1; // Index to send down the list
+            int outOfPlaceIndex = 0;
+            while (i < books.size()) {
+                prev = books.lookAtItem(i - 1);
+                if (prev.compareTo(current) > 0) {
+                    temp = books.remove(i - 1);
+                    books.addItem(i, temp);
+                    outOfPlaceIndex = i;
+                    break;
+                }
+                i++;
+            }
+            books.addItem(outOfPlaceIndex - 1, current);
+        }
+
     }
 
     /**
@@ -118,7 +117,7 @@ public class BookDB {
         while (i < books.size()) {
             bookListing = bookListing + books.lookAtItem(i) + "\n";
             i++;
-            
+
         }
         return bookListing + "\n" + books.size();
     }

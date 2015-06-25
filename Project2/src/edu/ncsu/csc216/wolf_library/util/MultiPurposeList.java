@@ -1,8 +1,8 @@
-/**
- * 
- */
+package edu.ncsu.csc216.wolf_library.util;
 
 import java.util.NoSuchElementException;
+
+import edu.ncsu.csc216.wolf_library.inventory.Book;
 
 /**
  * The multi purpose list creates a multi-purpose list that works like a linked
@@ -129,6 +129,7 @@ public class MultiPurposeList<T> {
      * @return the item that was removed
      */
     public Book remove(int pos) {
+
         // First ensure the position is valid
         if (pos >= size()) {
             throw new IndexOutOfBoundsException();
@@ -152,7 +153,7 @@ public class MultiPurposeList<T> {
             pos--;
         }
 
-        Book removed = previous.data;
+        Book removed = current.data;
         
         if (current != null) { // current should point to the item to be removed
             if (current == head){ // remove item 0?
@@ -161,13 +162,12 @@ public class MultiPurposeList<T> {
             else { // not removing item 0
                 previous.link = current.link; 
             }
-            return current.data;   
+   
          }
         
-           resetIterator();
-
-        // Return the removed book
         return removed;
+
+        //TODO: Where to return the removed book?
 
     }
 
@@ -202,7 +202,7 @@ public class MultiPurposeList<T> {
             // Navigate to the point of the operation
             while (head != null && pos >= 1) {
                 iterator = iterator.link;
-                Node other = new Node();
+                //Node other = new Node();
                 pos--;
             }
             
