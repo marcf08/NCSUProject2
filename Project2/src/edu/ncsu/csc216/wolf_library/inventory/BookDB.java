@@ -79,19 +79,25 @@ public class BookDB {
             //(The same in this case)
         } else {
             //If it's not the first book, we have work to do.
-            Book prev = null;
-            Book temp = null;
+            Book prev = null; //Book prior to the current
+            Book temp = null; //Temporary book for shuffling items
             int i = 1; // Index to send down the list
             while (i <= books.size()) {
-                prev = books.lookAtItem(i - 1);
-                if (prev.compareTo(book) > 0) {
-                    temp = books.remove(i - 1);
-                    books.addItem(i - 1, book);
-                    books.addItem(i, temp);
-                    return; //Bail out of the method so the add item doesn't execute
-                } 
+                prev = books.lookAtItem(i - 1); //Define the previous book
+                if (prev.compareTo(book) > 0) { //Check the compare values
+                    temp = books.remove(i - 1); //Remove the previous, it's out of order
+                    books.addItem(i - 1, book); //Add the new book to it's place
+                    books.addItem(i, temp); //Readd the out of order book to the proper order
+                    //Once this is done, there's no need to stay in the method.
+                    //We have to bail out with the return statement to make sure
+                    //none of the other statements execute. (Nothing was out of order.)
+                    return;
+                }
+                //Keep looking for something out of order
                 i++;
             }
+            //If we're still in the method, nothing must have been out of order,
+            //so insert the book at the back.
             books.addToRear(book);
 
 
