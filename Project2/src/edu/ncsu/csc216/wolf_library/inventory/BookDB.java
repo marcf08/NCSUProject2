@@ -65,28 +65,29 @@ public class BookDB {
 
     /**
      * The insert in order method examines the books from the input file. It
-     * compares the last book in the list in order to see where the new book
-     * should go.
-     * 
+     * compares sets of two books to see where the new book goes. This method 
+     *  runs comparisons between the last book and current book taken
+     *  from the input file. If needed, it swaps the locations of unordered books.
+     *   
      * @param book
      *            a book to insert into the inventory
      */
     private void insertInOrder(Book book) {
         if (books.isEmpty()) {
             books.addToRear(book);
+            //The first book obviously goes to the rear/front of the list
+            //(The same in this case)
         } else {
-            Book current = book;
+            //If it's not the first book, we have work to do.
             Book prev = null;
             Book temp = null;
             int i = 1; // Index to send down the list
-            int outOfPlaceIndex = 0;
             while (i <= books.size()) {
                 prev = books.lookAtItem(i - 1);
-                if (books.lookAtItem(i-1).compareTo(current) > 0) {
+                if (prev.compareTo(book) > 0) {
                     temp = books.remove(i - 1);
                     books.addItem(i - 1, book);
                     books.addItem(i, temp);
-                    outOfPlaceIndex = i;
                     return; //Bail out of the method so the add item doesn't execute
                 } 
                 i++;
