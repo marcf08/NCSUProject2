@@ -74,34 +74,27 @@ public class BookDB {
     private void insertInOrder(Book book) {
         if (books.isEmpty()) {
             books.addToRear(book);
-        } else if (books.size() == 2) {
-            Book early = books.lookAtItem(0);
-            Book firstTemp = null;
-            if (early.compareTo(book) > 0) {
-                firstTemp = books.lookAtItem(0);
-                books.remove(0);
-                books.addItem(0, book);
-                books.addToRear(firstTemp);
-            }
         } else {
             Book current = book;
             Book prev = null;
             Book temp = null;
             int i = 1; // Index to send down the list
             int outOfPlaceIndex = 0;
-            while (i < books.size()) {
+            while (i <= books.size()) {
                 prev = books.lookAtItem(i - 1);
-                if (prev.compareTo(current) > 0) {
+                if (books.lookAtItem(i-1).compareTo(current) > 0) {
                     temp = books.remove(i - 1);
+                    books.addItem(i - 1, book);
                     books.addItem(i, temp);
                     outOfPlaceIndex = i;
-                    break;
-                }
+                    return; //Bail out of the method so the add item doesn't execute
+                } 
                 i++;
             }
-            books.addItem(outOfPlaceIndex - 1, current);
-        }
+            books.addToRear(book);
 
+
+        }
     }
 
     /**

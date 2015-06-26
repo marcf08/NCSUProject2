@@ -141,7 +141,9 @@ public class MultiPurposeList<T> {
        
         // Special case for if the front item needs to be removed
         if (pos == 0) {
+            Book headRemove = head.data;
             head = head.link;
+            return headRemove;
         }
 
         Node current = head;
