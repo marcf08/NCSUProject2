@@ -76,7 +76,6 @@ public class BookDB {
         if (books.isEmpty()) {
             books.addToRear(book);
             //The first book obviously goes to the rear/front of the list
-            //(The same in this case)
         } else {
             //If it's not the first book, we have work to do.
             Book prev = null; //Book prior to the current
@@ -87,17 +86,17 @@ public class BookDB {
                 if (prev.compareTo(book) > 0) { //Check the compare values
                     temp = books.remove(i - 1); //Remove the previous, it's out of order
                     books.addItem(i - 1, book); //Add the new book to it's place
-                    books.addItem(i, temp); //Readd the out of order book to the proper order
+                    books.addItem(i, temp); //Re-add the out of order book to the proper place
                     //Once this is done, there's no need to stay in the method.
                     //We have to bail out with the return statement to make sure
-                    //none of the other statements execute. (Nothing was out of order.)
+                    //none of the other statements execute.
                     return;
                 }
                 //Keep looking for something out of order
                 i++;
             }
             //If we're still in the method, nothing must have been out of order,
-            //so insert the book at the back.
+            //and we're at the end of the list, so insert the new book at the back.
             books.addToRear(book);
 
 
