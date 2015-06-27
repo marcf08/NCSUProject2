@@ -27,24 +27,12 @@ public class ListTest {
             System.out.println(books.lookAtItem(i));
         }
         System.out.println(books.size());
-        
-        books.remove(2);
-        books.addItem(2, bookTwo);
-        for (int i = 0; i < books.size(); i++) {
-            System.out.println(books.lookAtItem(i));
-        }
+
+         books.moveAheadOne(2);
+         System.out.println("After move ahead");
+         for (int i = 0; i < books.size(); i++) {
+             System.out.println(books.lookAtItem(i));
+         }
         System.out.println(books.size());
-        
-        Book other = books.remove(0);
-        for (int i = 0; i < books.size(); i++) {
-            System.out.println(books.lookAtItem(i));
-        }
-        System.out.println("OTHER" + other);
-        
-        
-        
-        
-        
-        
     }
 }

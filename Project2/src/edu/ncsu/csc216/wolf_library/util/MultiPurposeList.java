@@ -138,7 +138,7 @@ public class MultiPurposeList<T> {
         if (pos < 0) {
             throw new IndexOutOfBoundsException();
         }
-       
+
         // Special case for if the front item needs to be removed
         if (pos == 0) {
             Book headRemove = head.data;
@@ -156,20 +156,19 @@ public class MultiPurposeList<T> {
         }
 
         Book removed = current.data;
-        
+
         if (current != null) { // current should point to the item to be removed
-            if (current == head){ // remove item 0?
+            if (current == head) { // remove item 0?
                 head = head.link;
+            } else { // not removing item 0
+                previous.link = current.link;
             }
-            else { // not removing item 0
-                previous.link = current.link; 
-            }
-   
-         }
-        
+
+        }
+
         return removed;
 
-        //TODO: Where to return the removed book?
+        // TODO: Where to return the removed book?
 
     }
 
@@ -183,6 +182,7 @@ public class MultiPurposeList<T> {
     public void moveAheadOne(int pos) {
         if (pos == 0) {
             // Do nothing
+            return;
         } else if (pos == 1) {
 
             resetIterator(); // Reset the iterator for good measure
@@ -196,23 +196,9 @@ public class MultiPurposeList<T> {
             resetIterator(); // Reset the iterator for good measure
 
         } else {
-
-            resetIterator(); // Reset the iterator for good measure
-
-            
-            
-            // Navigate to the point of the operation
-            while (head != null && pos >= 1) {
-                iterator = iterator.link;
-                //Node other = new Node();
-                pos--;
-            }
-            
-            Book temp = iterator.data;
-            
-
-                                  
-            addItem(pos + 1,temp); //Add the original 
+            //Simple swap algorithm
+            Book temp = remove(pos);
+            addItem(pos - 1, temp); 
 
         }
 

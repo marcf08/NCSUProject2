@@ -22,6 +22,12 @@ public abstract class User {
      * will call this constructor in order to implement their functionality.
      */
     public User(String id, String password) {
+        if (id.trim() == null) {
+            throw new IllegalArgumentException();
+        }
+        if (password.trim() == null) {
+            throw new IllegalArgumentException();
+        }
         this.id = id;
         this.password = password.hashCode(); // TODO: does this work?
     }

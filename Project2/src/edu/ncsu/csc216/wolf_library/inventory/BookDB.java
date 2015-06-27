@@ -95,7 +95,7 @@ public class BookDB {
                 //Keep looking for something out of order
                 i++;
             }
-            //If we're still in the method, nothing must have been out of order,
+            //If we're still in the method at this point, nothing must have been out of order,
             //and we're at the end of the list, so insert the new book at the back.
             books.addToRear(book);
 
@@ -118,7 +118,7 @@ public class BookDB {
             i++;
 
         }
-        return bookListing + "\n" + books.size();
+        return bookListing;
     }
 
 }

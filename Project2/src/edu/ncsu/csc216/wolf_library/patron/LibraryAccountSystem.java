@@ -1,0 +1,152 @@
+/**
+ * 
+ */
+package edu.ncsu.csc216.wolf_library.patron;
+
+/**
+ * The library account system defines the methods and users of the Wolf Library
+ * implementation.
+ * 
+ * @author Marcus
+ *
+ */
+public class LibraryAccountSystem implements AccountManager {
+    /**
+     * The account system uses a patron database to verify users.
+     */
+    private PatronDB patronList;
+    /**
+     * The admin user is the nested inner class in the account system. The user
+     * has the responsibilities pertaining to managing the library system.
+     */
+    private static Admin adminUser;
+    /**
+     * The current patron is the patron currently logged into the system.
+     */
+    private Patron currentPatron;
+    /**
+     * The admin logged in method checks to see whether the admin account is
+     * logged in.
+     */
+    private boolean adminLoggedIn;
+    /**
+     * The patron logged in method checks to see whether a patron account is
+     * logged in.
+     */
+    private boolean patronLoggedIn;
+
+    /**
+     * The constructor instantiates the library account system.
+     */
+    public LibraryAccountSystem() {
+        // Instantiate the administrator statically
+        LibraryAccountSystem.adminUser = new Admin();
+
+    }
+
+    /**
+     * The admin static class creates the admin account that can add or remove
+     * patron accounts.
+     * 
+     * @author Marcus
+     *
+     */
+    private static class Admin extends User {
+        public Admin() {
+            // Per the specifications, the user has the
+            // username and password set to admin
+            super("admin", "admin");
+        }
+    }
+
+    /**
+     * The login method accepts login credentials from the dialog box. It then
+     * sets the current patron to the one whose credentials were verified.
+     */
+    public void login(String id, String password) {
+        if (patronLoggedIn) {
+            throw new IllegalStateException();
+        }
+        if (adminLoggedIn) {
+            throw new IllegalStateException();
+        }
+        try {
+            currentPatron = patronList.verifyPatron(id, password);
+        } catch (IllegalArgumentException e) {
+            //TODO: Handle?
+        }
+        this.patronLoggedIn = true;
+    }
+
+    /**
+     * The logout method clears the current patron and sets the logged in
+     * boolean to false.
+     */
+    public void logout() {
+        currentPatron = null;
+        this.patronLoggedIn = false;
+    }
+
+    /**
+     * The get current method patron returns the patron currently logged in or
+     * null (if no patron is currently logged in.
+     * @return the patron currently logged in
+     */
+    public Patron getCurrentPatron() {
+        return this.currentPatron;
+    }
+
+    /**
+     * The admin logged in method checks to see if the admin is 
+     * currently logged in.
+     * @return true if the admin is logged on and false otherwise
+     */
+    public boolean isAdminLoggedIn() {
+        return this.adminLoggedIn;
+    }
+
+    /**
+     * The is patron logged in method checks to see if a patron is currently
+     * logged in.
+     * @return true if the patron is logged in and false otherwise
+     */
+    public boolean isPatronLoggedIn() {
+        return this.patronLoggedIn;
+    }
+
+    /**
+     * The add new patron method allows the administrator to 
+     * add a new patron to the database.
+     * @param id the new user's id
+     * @param password the new user's password
+     * @param num the maximum number of books this patron can check out
+     */
+    public void addNewPatron(String id, String password, int num) {
+        try {
+            this.patronList.addNewPatron(id, password, num);
+        } catch (Exception e) {
+            //Uses the most general exception since the new patron can
+            //throw multiple types of exceptions
+            //TODO: How to handle this (redisplay dialog box?)
+        }
+        
+
+    }
+
+    @Override
+    public void cancelAccount(String id) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * The list accounts method lists the user accounts for the 
+     * library database.
+     * @return a list of the accounts
+     */
+    public String listAcounts() {
+        return patronList.listAccounts();
+            
+        }
+    }
+
