@@ -134,10 +134,32 @@ public class PatronDB {
      */
     public void cancelAccount(String id) {
         for (int i = 0; i < size; i++) {
-            
+            if (id.equals(list[i].getId())) {
+                list[i].closeAccount();
+                list[i] = null; //Sever the reference
+                shift(i); //Run the shift algorithm
+                //TODO: shift algorithm
+            }
             
         }
+        //If the for-loop completes its execution, the
+        //account must not have been found.
+        throw new IllegalArgumentException();
     }
+    
+    
+    /**
+     * The shift method is a private method that shifts the accounts back to 
+     * the proper position (leaving no holes in the list.)
+     * @param removedPos the position of the "hole" in the list (from the
+     * cancel account operation)
+     */      
+    private void shift(int removedPos) {
+        for (int i =removedPos - 1; i < size - 1; i++ ) {
+            list[i] = list[i+1];
+        }
+    }
+
     
     
     /**

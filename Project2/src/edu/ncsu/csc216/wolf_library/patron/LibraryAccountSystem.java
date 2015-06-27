@@ -122,6 +122,9 @@ public class LibraryAccountSystem implements AccountManager {
      * @param num the maximum number of books this patron can check out
      */
     public void addNewPatron(String id, String password, int num) {
+        if (!adminLoggedIn) {
+            throw new IllegalStateException();
+        }
         try {
             this.patronList.addNewPatron(id, password, num);
         } catch (Exception e) {
@@ -133,9 +136,18 @@ public class LibraryAccountSystem implements AccountManager {
 
     }
 
-    @Override
+    /**
+     * The cancel account method removes a patron if the particular
+     * id supplied matches a patron in the list.
+     */
     public void cancelAccount(String id) {
-        // TODO Auto-generated method stub
+        if (!adminLoggedIn) {
+            throw new IllegalStateException();
+        }
+        for (int i = 0; i < patronList.size(); i ++) {
+            
+        }
+        
 
     }
 

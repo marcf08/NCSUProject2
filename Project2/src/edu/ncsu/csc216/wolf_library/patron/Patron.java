@@ -134,7 +134,12 @@ public class Patron extends User {
      * and returns all checked out books to the library.
      */
     public void closeAccount() {
-        //Send from reserve queue to checked out queue
+        //Cycle through the queues in order to ensure we get all books.
+        //The reason for this is that the reserve queue automatically
+        //checks out books
+        for (int i = 0; i < checkedOut.size() + reserveQueue.size(); i++) {
+            returnBook(i);
+        }
     }
     
     
