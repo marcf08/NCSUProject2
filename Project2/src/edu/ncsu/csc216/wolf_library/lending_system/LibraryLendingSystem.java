@@ -1,11 +1,9 @@
 package edu.ncsu.csc216.wolf_library.lending_system;
 
-import edu.ncsu.csc216.wolf_library.inventory.Book;
 import edu.ncsu.csc216.wolf_library.inventory.BookDB;
 import edu.ncsu.csc216.wolf_library.patron.AccountManager;
 import edu.ncsu.csc216.wolf_library.patron.LibraryAccountSystem;
 import edu.ncsu.csc216.wolf_library.patron.Patron;
-import edu.ncsu.csc216.wolf_library.patron.PatronDB;
 
 /**
  * The library lending system defines the methods used in the back end for the
@@ -85,8 +83,13 @@ public class LibraryLendingSystem implements LendingManager {
      * 
      * @return the patron's user id who is currently logged in
      */
+    // TODO: FIX THIS
     public String getCurrentUserId() {
-        return accounts.getCurrentPatron().getId();
+        System.out.println("ADMIN" + accounts.isAdminLoggedIn());
+        System.out.println("PATRON" + accounts.isPatronLoggedIn());
+        Patron toShow = accounts.getCurrentPatron();
+        return toShow.getId();
+
     }
 
     /**
@@ -148,8 +151,9 @@ public class LibraryLendingSystem implements LendingManager {
     }
 
     /**
-     * The traverse reserve queue method shows a string of the books
-     * in the reserve queue.
+     * The traverse reserve queue method shows a string of the books in the
+     * reserve queue.
+     * 
      * @return the books in the reserve queue
      */
     public String traverseReserveQueue() {
@@ -160,8 +164,8 @@ public class LibraryLendingSystem implements LendingManager {
     }
 
     /**
-     * The traverse checked out queue shows a string of the books
-     * in the checked out queue.
+     * The traverse checked out queue shows a string of the books in the checked
+     * out queue.
      */
     public String traverseCheckedOut() {
         if (!accounts.isPatronLoggedIn()) {
@@ -172,7 +176,9 @@ public class LibraryLendingSystem implements LendingManager {
 
     /**
      * The return item method returns a book to the inventory.
-     * @param the position of the item in the list of checked out items
+     * 
+     * @param the
+     *            position of the item in the list of checked out items
      */
     public void returnItem(int position) {
         if (!accounts.isPatronLoggedIn()) {

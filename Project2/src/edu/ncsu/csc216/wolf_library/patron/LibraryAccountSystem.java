@@ -75,9 +75,8 @@ public class LibraryAccountSystem implements AccountManager {
             if (id.equals("admin") && adminUser.verifyPassword("admin")) {
                 adminLoggedIn = true;
             } else {
-                System.out.println(listAcounts());
                 currentPatron = patronList.verifyPatron(id, password);
-                this.patronLoggedIn = true;
+                 this.patronLoggedIn = true;
             }
         } catch (IllegalArgumentException e) {
             //TODO: Handle?
@@ -90,14 +89,19 @@ public class LibraryAccountSystem implements AccountManager {
      * boolean to false.
      */
     public void logout() {
-        currentPatron = null;
-        this.adminLoggedIn = false;
-        this.patronLoggedIn = false;
+        if (adminLoggedIn) {
+            this.adminLoggedIn = false;
+        } else {
+            currentPatron = null;
+            this.patronLoggedIn = false;
+        }
+        
+
     }
 
     /**
      * The get current method patron returns the patron currently logged in or
-     * null (if no patron is currently logged in.
+     * null (if no patron is currently logged in.)
      * @return the patron currently logged in
      */
     public Patron getCurrentPatron() {
