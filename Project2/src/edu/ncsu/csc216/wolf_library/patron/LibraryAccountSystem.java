@@ -19,7 +19,7 @@ public class LibraryAccountSystem implements AccountManager {
      * The admin user is the nested inner class in the account system. The user
      * has the responsibilities pertaining to managing the library system.
      */
-    private static Admin adminUser;
+    static Admin adminUser;
     /**
      * The current patron is the patron currently logged into the system.
      */
@@ -40,7 +40,8 @@ public class LibraryAccountSystem implements AccountManager {
      */
     public LibraryAccountSystem() {
         // Instantiate the administrator statically
-        LibraryAccountSystem.adminUser = new Admin();
+        adminUser = new Admin();
+        patronList = new PatronDB();
 
     }
 
@@ -51,7 +52,7 @@ public class LibraryAccountSystem implements AccountManager {
      * @author Marcus
      *
      */
-    private static class Admin extends User {
+    class Admin extends User {
         public Admin() {
             // Per the specifications, the user has the
             // username and password set to admin
@@ -71,11 +72,17 @@ public class LibraryAccountSystem implements AccountManager {
             throw new IllegalStateException();
         }
         try {
-            currentPatron = patronList.verifyPatron(id, password);
+            if (id.equals("admin") && adminUser.verifyPassword("admin")) {
+                adminLoggedIn = true;
+            } else {
+                System.out.println(listAcounts());
+                currentPatron = patronList.verifyPatron(id, password);
+                this.patronLoggedIn = true;
+            }
         } catch (IllegalArgumentException e) {
             //TODO: Handle?
         }
-        this.patronLoggedIn = true;
+        
     }
 
     /**
@@ -84,6 +91,7 @@ public class LibraryAccountSystem implements AccountManager {
      */
     public void logout() {
         currentPatron = null;
+        this.adminLoggedIn = false;
         this.patronLoggedIn = false;
     }
 
@@ -144,8 +152,10 @@ public class LibraryAccountSystem implements AccountManager {
         if (!adminLoggedIn) {
             throw new IllegalStateException();
         }
-        for (int i = 0; i < patronList.size(); i ++) {
-            
+        try {
+            patronList.cancelAccount(id);
+        } catch (IllegalArgumentException e) {
+            //TODO: Handle?
         }
         
 
@@ -157,8 +167,7 @@ public class LibraryAccountSystem implements AccountManager {
      * @return a list of the accounts
      */
     public String listAcounts() {
-        return patronList.listAccounts();
-            
+        return patronList.toString();
         }
     }
 

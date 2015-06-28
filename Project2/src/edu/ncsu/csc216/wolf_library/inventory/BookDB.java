@@ -3,6 +3,7 @@ package edu.ncsu.csc216.wolf_library.inventory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
 import edu.ncsu.csc216.wolf_library.util.*;
 
 /**
@@ -119,6 +120,23 @@ public class BookDB {
 
         }
         return bookListing;
+    }
+    
+    /**
+     * The find item at method finds a book at a specific spot 
+     * in the inventory.
+     * @param pos the position
+     * @return the book at the given position
+     */
+    public Book findItemAt(int pos) {
+        if (pos < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        if (pos >= books.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return books.lookAtItem(pos);
+
     }
 
 }

@@ -49,6 +49,8 @@ public class Patron extends User {
             throw new IllegalArgumentException();
         }
         this.maxCheckedOut = maxCheckedOut;
+        checkedOut = new MultiPurposeList<Book>();
+        reserveQueue = new MultiPurposeList<Book>();
     }
 
     /**

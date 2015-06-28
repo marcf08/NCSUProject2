@@ -52,7 +52,7 @@ public class PatronDB {
             throw new IllegalArgumentException();
         }
         for (int i = 0; i < size; i++) {
-            if (list[i].equals(id) && list[i].verifyPassword(password)) {
+            if (list[i].getId().equals(id) && list[i].verifyPassword(password)) {
                 return list[i];
             }
         }
@@ -113,16 +113,17 @@ public class PatronDB {
             throw new IllegalArgumentException();
         }
         //Ensure the user id is unique
+        //TODO: CHANGE TO IS NEW
         if (!isUnique(id)) {
                 throw new IllegalArgumentException();
-            }
+        }
 
 
         // If we make it here, the new patron is unique and valid
         Patron toAdd = new Patron(id, password, maxAllowed);
         //Use the insert alphabetically method to insert the user
         //in the proper spot in the database
-        insertAlphabetically(toAdd);
+        insert(toAdd);
 
     }
     
@@ -170,7 +171,7 @@ public class PatronDB {
      * @param toAdd
      *            the newly created patron
      */
-    private void insertAlphabetically(Patron toAdd) {
+    private void insert(Patron toAdd) {
         // Search for where to add the patron in the database
         if (size == 0) { // If the list is empty, the patron gets added to the
                          // zero position
