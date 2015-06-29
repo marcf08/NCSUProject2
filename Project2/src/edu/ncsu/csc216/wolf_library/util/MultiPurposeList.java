@@ -132,11 +132,11 @@ public class MultiPurposeList<T> {
 
         // First ensure the position is valid
         if (pos >= size()) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
 
         if (pos < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
         }
 
         // Special case for if the front item needs to be removed
@@ -266,7 +266,7 @@ public class MultiPurposeList<T> {
      */
     public Book next() {
         if (!hasNext()) {
-            throw new NoSuchElementException();
+            throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
         }
         return iterator.data;
     }

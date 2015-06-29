@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc216.wolf_library.patron;
 
+import edu.ncsu.csc216.wolf_library.util.Constants;
+
 /**
  * The patron DB uses a custom array-based list to keep track of the patrons
  * that can use the library.
@@ -61,7 +63,7 @@ public class PatronDB {
         // user cannot be found, either the password was incorrect
         // or the user does not exist in the database. Hence we throw
         // the error if the loop fully executes without returning a patron.
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException(Constants.EXP_INCORRECT);
 
     }
 
@@ -92,81 +94,81 @@ public class PatronDB {
      */
     public void addNewPatron(String id, String password, int maxAllowed) {
         if (size == MAX_SIZE) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(Constants.EXP_PATRON_DB_FULL);
         }
         if (id.contains(" ")) {
             // This will get thrown even if the whitespace is longer than one
             // space
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_WHITESPACE);
         }
         if (password.contains(" ")) {
             // This will get thrown even if the whitespace is longer than one
             // space
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_WHITESPACE);
         }
         if (id.equals("")) {
             // Null strings are illegal per the specifications
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
         if (password.equals("")) {
             // Null strings are illegal per the specifications
+            throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
+        }
+        // Ensure the user id is unique
+        // TODO: CHANGE TO IS NEW
+        if (!isNewPatron(id)) {
             throw new IllegalArgumentException();
         }
-        //Ensure the user id is unique
-        //TODO: CHANGE TO IS NEW
-        if (!isUnique(id)) {
-                throw new IllegalArgumentException();
-        }
-
 
         // If we make it here, the new patron is unique and valid
         Patron toAdd = new Patron(id, password, maxAllowed);
-        //Use the insert alphabetically method to insert the user
-        //in the proper spot in the database
+        // Use the insert alphabetically method to insert the user
+        // in the proper spot in the database
         insert(toAdd);
 
     }
-    
-    
+
     /**
      * The cancel account method removes the patron with the given id from the
-     * list. It returns any books that the patron has checked out to the inventory.
-     * @param id the user id to remove from the database
+     * list. It returns any books that the patron has checked out to the
+     * inventory.
+     * 
+     * @param id
+     *            the user id to remove from the database
      */
     public void cancelAccount(String id) {
         for (int i = 0; i < size; i++) {
             if (id.equals(list[i].getId())) {
                 list[i].closeAccount();
-                list[i] = null; //Sever the reference
-                shift(i); //Run the shift algorithm
-                //TODO: shift algorithm
+                list[i] = null; // Sever the reference
+                shift(i); // Run the shift algorithm
+                // TODO: shift algorithm
             }
-            
+
         }
-        //If the for-loop completes its execution, the
-        //account must not have been found.
+        // If the for-loop completes its execution, the
+        // account must not have been found.
         throw new IllegalArgumentException();
     }
-    
-    
+
     /**
-     * The shift method is a private method that shifts the accounts back to 
-     * the proper position (leaving no holes in the list.)
-     * @param removedPos the position of the "hole" in the list (from the
-     * cancel account operation)
-     */      
+     * The shift method is a private method that shifts the accounts back to the
+     * proper position (leaving no holes in the list.)
+     * 
+     * @param removedPos
+     *            the position of the "hole" in the list (from the cancel
+     *            account operation)
+     */
     private void shift(int removedPos) {
-        for (int i =removedPos - 1; i < size - 1; i++ ) {
-            list[i] = list[i+1];
+        for (int i = removedPos - 1; i < size - 1; i++) {
+            list[i] = list[i + 1];
         }
     }
 
-    
-    
     /**
      * The insert alphabetically method is a private method that searches the
-     * list of users to see where the new patron should be added. It also 
-     * adds the patron.
+     * list of users to see where the new patron should be added. It also adds
+     * the patron.
      * 
      * @param toAdd
      *            the newly created patron
@@ -213,20 +215,22 @@ public class PatronDB {
     }
 
     /**
-     * The is unique ensures a patron does not exist in the database with the
-     * same user id. It loops through the list and returns a user if that
-     * user's id matches that of the new user. 
-     * @param id the user id to check
+     * The is new patron method checks that a patron does not exist in the
+     * database with the same user id. It loops through the list and returns a
+     * user if that user's id matches that of the new user.
+     * 
+     * @param id
+     *            the user id to check
      * @return true if the id is unique and false otherwise
      */
-    private boolean isUnique(String id) {
+    private boolean isNewPatron(String id) {
         for (int i = 0; i < size; i++) {
             if (id.equals(list[i].getId())) {
-                //A user with the same id exists, return false
+                // A user with the same id exists, return false
                 return false;
             }
         }
-        //If we make it here, the user must be unique
+        // If we make it here, the user must be unique
         return true;
     }
 

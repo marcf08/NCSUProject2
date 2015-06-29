@@ -4,6 +4,7 @@
 package edu.ncsu.csc216.wolf_library.patron;
 
 import edu.ncsu.csc216.wolf_library.inventory.Book;
+import edu.ncsu.csc216.wolf_library.util.Constants;
 import edu.ncsu.csc216.wolf_library.util.MultiPurposeList;
 
 /**
@@ -43,10 +44,10 @@ public class Patron extends User {
     public Patron(String id, String password, int maxCheckedOut) {
         super(id, password);
         if (maxCheckedOut < 1) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_MAX);
         }
-        if (getId().equals("admin")) {
-            throw new IllegalArgumentException();
+        if (getId().equals(Constants.ADMIN)) {
+            throw new IllegalArgumentException(Constants.EXP_PATRON_ADMIN);
         }
         this.maxCheckedOut = maxCheckedOut;
         checkedOut = new MultiPurposeList<Book>();
@@ -95,8 +96,11 @@ public class Patron extends User {
         if (pos >= reserveQueue.size()) {
             throw new IndexOutOfBoundsException();
         }
-        // If no exceptions were thrown, move the book ahead
-        moveAheadOneInReserves(pos);
+        if (pos == 0) {
+            return; //Do nothing, bail out of the method
+        }
+        // If no exceptions were thrown and the position was not 0, move the book ahead
+        reserveQueue.moveAheadOne(pos);
     }
     
     /**
@@ -121,7 +125,7 @@ public class Patron extends User {
      */
     public void reserve(Book book) {
         if (book == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
         //If no exceptions were thrown, add the book to the end
         if (checkedOut.size() < maxCheckedOut) {
@@ -139,7 +143,7 @@ public class Patron extends User {
         //Cycle through the queues in order to ensure we get all books.
         //The reason for this is that the reserve queue automatically
         //checks out books
-        for (int i = 0; i < checkedOut.size() + reserveQueue.size(); i++) {
+        for (int i = 0; i < checkedOut.size(); i++) {
             returnBook(i);
         }
     }
@@ -159,21 +163,9 @@ public class Patron extends User {
         }
         //Remove the book from the list
        Book toReturn = checkedOut.remove(pos);
+       //Check it back in
        toReturn.backToInventory();
        numCheckedOut--;
-       //Upon returning a book, the reserve queue may
-       //check out another book automatically
-       if (numCheckedOut < maxCheckedOut) {
-           //Automatically check another book out if the
-           //reserve queue is less than the max checked out
-           Book temp = reserveQueue.remove(0);
-           checkedOut.addToRear(temp);
-       }
+      }
     }
-    
-    
-    
-    
 
-    
-}

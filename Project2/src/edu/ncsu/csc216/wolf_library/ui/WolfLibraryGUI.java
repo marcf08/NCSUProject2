@@ -508,7 +508,7 @@ public class WolfLibraryGUI extends JFrame implements ActionListener {
         String userId = library.getCurrentUserId();
         lblWelcome.setText(WELCOME + " " + userId);
         
-
+        
         boolean adminLoggedIn = userId.equals(Constants.ADMIN);
         boolean patronLoggedIn = !userId.equals(Constants.ADMIN) && !userId.equals("");
         

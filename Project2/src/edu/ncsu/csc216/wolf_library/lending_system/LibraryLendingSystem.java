@@ -4,6 +4,7 @@ import edu.ncsu.csc216.wolf_library.inventory.BookDB;
 import edu.ncsu.csc216.wolf_library.patron.AccountManager;
 import edu.ncsu.csc216.wolf_library.patron.LibraryAccountSystem;
 import edu.ncsu.csc216.wolf_library.patron.Patron;
+import edu.ncsu.csc216.wolf_library.util.Constants;
 
 /**
  * The library lending system defines the methods used in the back end for the
@@ -85,11 +86,13 @@ public class LibraryLendingSystem implements LendingManager {
      */
     // TODO: FIX THIS
     public String getCurrentUserId() {
-        System.out.println("ADMIN" + accounts.isAdminLoggedIn());
-        System.out.println("PATRON" + accounts.isPatronLoggedIn());
-        Patron toShow = accounts.getCurrentPatron();
-        return toShow.getId();
-
+        if (accounts.isAdminLoggedIn()) {
+            return Constants.ADMIN;
+        } else if (accounts.getCurrentPatron() == null) {
+            return ""; //Return empty string per specifications
+        } else {
+            return accounts.getCurrentPatron().getId();
+        }
     }
 
     /**

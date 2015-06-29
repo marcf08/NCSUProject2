@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc216.wolf_library.patron;
 
+import edu.ncsu.csc216.wolf_library.util.Constants;
+
 /**
  * The library account system defines the methods and users of the Wolf Library
  * implementation.
@@ -56,7 +58,7 @@ public class LibraryAccountSystem implements AccountManager {
         public Admin() {
             // Per the specifications, the user has the
             // username and password set to admin
-            super("admin", "admin");
+            super(Constants.ADMIN, Constants.ADMIN);
         }
     }
 
@@ -66,22 +68,25 @@ public class LibraryAccountSystem implements AccountManager {
      */
     public void login(String id, String password) {
         if (patronLoggedIn) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(
+                    Constants.EXP_LAS_USER_ALREADY_LOGGED_IN);
         }
         if (adminLoggedIn) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(
+                    Constants.EXP_LAS_USER_ALREADY_LOGGED_IN);
         }
-        try {
-            if (id.equals("admin") && adminUser.verifyPassword("admin")) {
-                adminLoggedIn = true;
-            } else {
-                currentPatron = patronList.verifyPatron(id, password);
-                 this.patronLoggedIn = true;
-            }
-        } catch (IllegalArgumentException e) {
-            //TODO: Handle?
+        //Check if it's admin
+        if (id.equals(Constants.ADMIN) && adminUser.verifyPassword(password)) {
+            adminLoggedIn = true;   
+        //Check if it's a patron
+        } else if (!adminLoggedIn){
+            currentPatron =patronList.verifyPatron(id, password); 
+            this.patronLoggedIn = true;
+        //Otherwise, throw an exception
+        } else {
+            throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         }
-        
+
     }
 
     /**
@@ -95,13 +100,13 @@ public class LibraryAccountSystem implements AccountManager {
             currentPatron = null;
             this.patronLoggedIn = false;
         }
-        
 
     }
 
     /**
      * The get current method patron returns the patron currently logged in or
      * null (if no patron is currently logged in.)
+     * 
      * @return the patron currently logged in
      */
     public Patron getCurrentPatron() {
@@ -109,8 +114,9 @@ public class LibraryAccountSystem implements AccountManager {
     }
 
     /**
-     * The admin logged in method checks to see if the admin is 
-     * currently logged in.
+     * The admin logged in method checks to see if the admin is currently logged
+     * in.
+     * 
      * @return true if the admin is logged on and false otherwise
      */
     public boolean isAdminLoggedIn() {
@@ -120,6 +126,7 @@ public class LibraryAccountSystem implements AccountManager {
     /**
      * The is patron logged in method checks to see if a patron is currently
      * logged in.
+     * 
      * @return true if the patron is logged in and false otherwise
      */
     public boolean isPatronLoggedIn() {
@@ -127,11 +134,15 @@ public class LibraryAccountSystem implements AccountManager {
     }
 
     /**
-     * The add new patron method allows the administrator to 
-     * add a new patron to the database.
-     * @param id the new user's id
-     * @param password the new user's password
-     * @param num the maximum number of books this patron can check out
+     * The add new patron method allows the administrator to add a new patron to
+     * the database.
+     * 
+     * @param id
+     *            the new user's id
+     * @param password
+     *            the new user's password
+     * @param num
+     *            the maximum number of books this patron can check out
      */
     public void addNewPatron(String id, String password, int num) {
         if (!adminLoggedIn) {
@@ -140,17 +151,16 @@ public class LibraryAccountSystem implements AccountManager {
         try {
             this.patronList.addNewPatron(id, password, num);
         } catch (Exception e) {
-            //Uses the most general exception since the new patron can
-            //throw multiple types of exceptions
-            //TODO: How to handle this (redisplay dialog box?)
+            // Uses the most general exception since the new patron can
+            // throw multiple types of exceptions
+            // TODO: How to handle this (redisplay dialog box?)
         }
-        
 
     }
 
     /**
-     * The cancel account method removes a patron if the particular
-     * id supplied matches a patron in the list.
+     * The cancel account method removes a patron if the particular id supplied
+     * matches a patron in the list.
      */
     public void cancelAccount(String id) {
         if (!adminLoggedIn) {
@@ -159,19 +169,18 @@ public class LibraryAccountSystem implements AccountManager {
         try {
             patronList.cancelAccount(id);
         } catch (IllegalArgumentException e) {
-            //TODO: Handle?
+            // TODO: Handle?
         }
-        
 
     }
 
     /**
-     * The list accounts method lists the user accounts for the 
-     * library database.
+     * The list accounts method lists the user accounts for the library
+     * database.
+     * 
      * @return a list of the accounts
      */
     public String listAcounts() {
         return patronList.toString();
-        }
     }
-
+}

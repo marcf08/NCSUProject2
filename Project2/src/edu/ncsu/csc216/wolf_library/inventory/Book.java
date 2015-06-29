@@ -5,6 +5,8 @@ package edu.ncsu.csc216.wolf_library.inventory;
 
 import java.util.Scanner;
 
+import edu.ncsu.csc216.wolf_library.util.Constants;
+
 /**
  * This class defines the methods of a book object for the Wolf Library project.
  * It contains the information about the book as well as methods for accessing
@@ -57,7 +59,7 @@ public class Book implements Comparable<Book> {
                 this.numAvailable = Integer.parseInt(numAvailable);
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("Error parsing from file.");
+            
         }
 
         // Invalid book title represented by the null String
@@ -92,7 +94,7 @@ public class Book implements Comparable<Book> {
         // Start with a String and build it per the requirements
 
         if (this.numAvailable == 0) {
-            libraryListing = "* " + this.info;
+            libraryListing = Constants.CURRENTLY_UNAVAILABLE + this.info;
         } else {
             libraryListing = this.info;
         }
@@ -122,6 +124,9 @@ public class Book implements Comparable<Book> {
      * the inventory stock. It simply decrements the number available.
      */
     public void removeOneCopyFromInventory() {
+        if (numAvailable == 0) {
+            throw new IllegalStateException(Constants.EXP_BOOK_UNAVAILABLE);
+        }
         this.numAvailable--;
     }
 
@@ -137,6 +142,9 @@ public class Book implements Comparable<Book> {
      * @return an integer value obtained via lexicographical comparison
      */
     public int compareTo(Book other) {
+        if (other == null) {
+            throw new NullPointerException(Constants.EXP_CANNOT_COMPARE);
+        }
         // First, get the books in the proper format for comparison
         String book = correctBooksForComparison(this);
         String otherBook = correctBooksForComparison(other);

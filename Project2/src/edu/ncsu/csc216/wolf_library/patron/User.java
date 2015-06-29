@@ -3,6 +3,8 @@
  */
 package edu.ncsu.csc216.wolf_library.patron;
 
+import edu.ncsu.csc216.wolf_library.util.Constants;
+
 /**
  * @author Marcus The abstract class user creates the base functionality for
  *         creating users to interact with the library system.
@@ -23,13 +25,40 @@ public abstract class User {
      */
     public User(String id, String password) {
         if (id.trim() == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_NULL);
         }
         if (password.trim() == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_NULL);
+        }
+        if (containsWhitespace(id.trim())) {
+            throw new IllegalArgumentException(Constants.EXP_PATRON_WHITESPACE);
+        }
+        if (containsWhitespace(password.trim())) {
+            throw new IllegalArgumentException(Constants.EXP_PATRON_WHITESPACE);
+        }
+        if (id.trim().length() == 0) {
+            throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
+        }
+        if (password.trim().length() == 0) {
+            throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
         this.id = id;
         this.password = password.hashCode(); // TODO: does this work?
+    }
+
+    /**
+     * The contains whitespace method inspects the parameters for whitespace,
+     * which is not allowed per the project specifications.
+     * 
+     * @param idOrPassword
+     *            an id or password to check for whitepsace
+     * @return true if the string contains whitespace and false otherwise
+     */
+    private boolean containsWhitespace(String idOrPassword) {
+        if (idOrPassword.contains(" ")) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -46,23 +75,28 @@ public abstract class User {
 
     /**
      * The get id method is a simple getting for the user's ID.
+     * 
      * @return the user's id
      */
     public String getId() {
         return this.id;
     }
-    
+
     /**
-     * The compare to method looks at two users to see if they are in order.
-     * It performs a lexicographical comparison.
-     * @param other an other user to compare
+     * The compare to method looks at two users to see if they are in order. It
+     * performs a lexicographical comparison.
+     * 
+     * @param other
+     *            an other user to compare
      * @return an integer value obtained via lexicographical comparison
      */
     public int compareTo(User other) {
+        if (other == null) {
+            throw new NullPointerException(Constants.EXP_CANNOT_COMPARE);
+        }
         return id.compareTo(other.getId());
     }
-    
-   
+
     /**
      * The hash code method is used to secure the password.
      */
