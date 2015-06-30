@@ -120,7 +120,6 @@ public class PatronDB {
         if (!isNewPatron(id)) {
             throw new IllegalArgumentException();
         }
-
         // If we make it here, the new patron is unique and valid
         //Add it alphabetically
         insert(new Patron(id, password, maxAllowed));
@@ -136,9 +135,9 @@ public class PatronDB {
      *            the user id to remove from the database
      */
     public void cancelAccount(String id) {
-        int num = 0;
-        num = findMatchingAccount(id);
-        if (num == -1) {
+        int num = findMatchingAccount(id);
+        System.out.println(num); //TODO remove
+         if (num == -1) {
             throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         } else {
             Patron toCancel = list[num];
@@ -160,7 +159,7 @@ public class PatronDB {
      */
     private int findMatchingAccount(String id) {
         for (int i = 0; i < size; i++) {
-            if (list[i] != null && id.equals(list[i].getId())) {
+            if ((list[i] != null) && (id.equals(list[i].getId()))) {
                 return i;
             }
         }
@@ -201,6 +200,8 @@ public class PatronDB {
                          // zero position
             list[0] = toAdd;
             size++; // Increment the size
+            System.out.println(size);
+            System.out.println(listAccounts());
         } else {
             // Set up a previous and a temp to check for out of order users
             Patron prev = null;
@@ -209,8 +210,8 @@ public class PatronDB {
             // this point
             for (int i = 1; i <= size; i++) {
                 prev = list[i - 1];
-                System.out.println("COMAPRE" + prev.compareTo(toAdd));
-                System.out.println(listAccounts());
+                //System.out.println("COMAPRE" + prev.compareTo(toAdd));
+                //System.out.println(listAccounts());
                 if (prev.compareTo(toAdd) > 0) {
                     temp = list[i - 1]; // Save the previous user, it's out of
                                         // order
@@ -227,6 +228,9 @@ public class PatronDB {
                     // In that case, we add the patron to the rear.
                     list[size] = toAdd;
                     size++; // And increase the size
+                    System.out.println(size);
+                    System.out.println(listAccounts());
+                    return;
                 }
 
             }
