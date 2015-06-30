@@ -130,6 +130,7 @@ public class Patron extends User {
         //If no exceptions were thrown, add the book to the end
         if (checkedOut.size() < maxCheckedOut) {
             checkedOut.addToRear(book);
+            numCheckedOut++;
         } else {
             reserveQueue.addToRear(book);
         }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_library.patron;
 
 import edu.ncsu.csc216.wolf_library.util.Constants;
@@ -52,6 +49,10 @@ public class PatronDB {
         }
         if (password == null) {
             throw new IllegalArgumentException();
+        }
+        int indexOfMatch = findMatchingAccount(id);
+        if (indexOfMatch == -1) {
+            throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         }
         for (int i = 0; i < size; i++) {
             if (list[i].getId().equals(id) && list[i].verifyPassword(password)) {
@@ -121,10 +122,8 @@ public class PatronDB {
         }
 
         // If we make it here, the new patron is unique and valid
-        Patron toAdd = new Patron(id, password, maxAllowed);
-        // Use the insert alphabetically method to insert the user
-        // in the proper spot in the database
-        insert(toAdd);
+        //Add it alphabetically
+        insert(new Patron(id, password, maxAllowed));
 
     }
 
@@ -132,23 +131,40 @@ public class PatronDB {
      * The cancel account method removes the patron with the given id from the
      * list. It returns any books that the patron has checked out to the
      * inventory.
-     * 
+     *
      * @param id
      *            the user id to remove from the database
      */
     public void cancelAccount(String id) {
-        for (int i = 0; i < size; i++) {
-            if (id.equals(list[i].getId())) {
-                list[i].closeAccount();
-                list[i] = null; // Sever the reference
-                shift(i); // Run the shift algorithm
-                // TODO: shift algorithm
-            }
-
+        int num = 0;
+        num = findMatchingAccount(id);
+        if (num == -1) {
+            throw new IllegalArgumentException(Constants.EXP_INCORRECT);
+        } else {
+            Patron toCancel = list[num];
+            toCancel.closeAccount();
+            list[num] = null; // Remove the patron from the list
+            shift(num); // Run the shift algorithm to maintain list
+                        // integrity (will only execute if necessary)
         }
-        // If the for-loop completes its execution, the
-        // account must not have been found.
-        throw new IllegalArgumentException();
+    }
+
+    /**
+     * The find matching account method searches the database for a matching
+     * account.
+     * 
+     * @param id
+     *            the id to search for
+     * @return i the index of the account or -1 if the user was not found in the
+     *         database
+     */
+    private int findMatchingAccount(String id) {
+        for (int i = 0; i < size; i++) {
+            if (list[i] != null && id.equals(list[i].getId())) {
+                return i;
+            }
+        }
+        return -1; // Indicate the account was not found
     }
 
     /**
@@ -160,8 +176,14 @@ public class PatronDB {
      *            account operation)
      */
     private void shift(int removedPos) {
-        for (int i = removedPos - 1; i < size - 1; i++) {
-            list[i] = list[i + 1];
+        if (size == 0) {
+            return; // Do nothing
+        } else if (size == 1) {
+            return; // Do nothing, no reordering needs to occur
+        } else {
+            for (int i = removedPos - 1; i < size - 1; i++) {
+                list[i] = list[i + 1];
+            }
         }
     }
 
@@ -185,26 +207,25 @@ public class PatronDB {
             Patron temp = null;
             // Start the search at 1 since the list has at least one patron at
             // this point
-            for (int i = 1; i < size; i++) {
+            for (int i = 1; i <= size; i++) {
                 prev = list[i - 1];
+                System.out.println("COMAPRE" + prev.compareTo(toAdd));
+                System.out.println(listAccounts());
                 if (prev.compareTo(toAdd) > 0) {
-                    temp = prev; // Save the previous user, it's out of order
-                    prev = null; // Set the previous user to null so it's out of
-                                 // the database
-                    size--; // Though not necessary, it's proper to reduce the
-                            // size since
-                    // we're technically removing a user
+                    temp = list[i - 1]; // Save the previous user, it's out of
+                                        // order
+                    list[i - 1] = null; // Remove it from the list
                     list[i - 1] = toAdd; // Add the new patron to the place
                                          // where previous was located
-                    size++; // Increment the size
                     list[i] = temp; // Re-add the previous patron to the proper
                                     // place--behind the new user
                     size++;
+                    System.out.println("ADD IF OUT OF ORDER" + listAccounts());
                 } else {
                     // The else statement will execute if nothing is out of
                     // order.
                     // In that case, we add the patron to the rear.
-                    list[size - 1] = toAdd;
+                    list[size] = toAdd;
                     size++; // And increase the size
                 }
 
