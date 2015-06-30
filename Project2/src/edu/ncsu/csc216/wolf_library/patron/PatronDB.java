@@ -220,7 +220,7 @@ public class PatronDB {
                     list[i] = temp; // Re-add the previous patron to the proper
                                     // place--behind the new user
                     size++;
-                    System.out.println("ADD IF OUT OF ORDER" + listAccounts());
+                    return; //Bail, we're done
                 } else {
                     // The else statement will execute if nothing is out of
                     // order.
