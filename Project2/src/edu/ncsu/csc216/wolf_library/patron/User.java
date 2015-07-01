@@ -9,7 +9,7 @@ import edu.ncsu.csc216.wolf_library.util.Constants;
  * @author Marcus The abstract class user creates the base functionality for
  *         creating users to interact with the library system.
  */
-public abstract class User {
+public abstract class User  implements Comparable<User> {
     /**
      * The id field is for the user's ID.
      */

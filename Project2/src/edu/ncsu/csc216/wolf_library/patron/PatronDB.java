@@ -31,6 +31,7 @@ public class PatronDB {
      */
     public PatronDB() {
         list = new Patron[MAX_SIZE];
+        size = 0;
     }
 
     /**
@@ -55,6 +56,7 @@ public class PatronDB {
             throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         }
         for (int i = 0; i < size; i++) {
+            System.out.println("LINE 59");
             if (list[i].getId().equals(id) && list[i].verifyPassword(password)) {
                 return list[i];
             }
@@ -123,7 +125,7 @@ public class PatronDB {
             throw new IllegalArgumentException();
         }
         // If we make it here, the new patron is unique and valid
-        //Add it alphabetically
+        // Add it alphabetically
         insert(new Patron(id, password, maxAllowed));
         System.out.println("LINE 128" + listAccounts());
 
@@ -165,11 +167,13 @@ public class PatronDB {
             return -1;
         }
         for (int i = 0; i < size; i++) {
-            if ((list[i] != null) && (id.equals(list[i].getId()))) {
-                return i;
+            if ((list[i] != null)) {
+                if (id.equals(list[i].getId())) {
+                    return i;
+                }
             }
         }
-        return -1; // Indicate the account was not found
+        return -1;// Indicate the account was not found
     }
 
     /**
@@ -206,40 +210,74 @@ public class PatronDB {
                          // zero position
             list[0] = toAdd;
             size++; // Increment the size
-        } else {
-            // Set up a previous and a temp to check for out of order users
-            Patron prev = null;
-            Patron temp = null;
-            // Start the search at 1 since the list has at least one patron at
-            // this point
-            for (int i = 1; i <= size; i++) {
-                prev = list[i - 1];
-                if (prev.compareTo(toAdd) > 0) {
-                    temp = list[i - 1]; // Save the previous user, it's out of
-                                        // order
-                    list[i - 1] = null; // Remove it from the list
-                    list[i - 1] = toAdd; // Add the new patron to the place
-                                         // where previous was located
-                    list[i + 1] = temp; // Re-add the previous patron to the proper
-                                    // place--behind the new user
-                    size++;
-                    return; //Bail, we're done
-                } else {
-                    // The else statement will execute if nothing is out of
-                    // order.
-                    // In that case, we add the patron to the rear.
-                    list[size] = toAdd;
-                    size++; // And increase the size
-                    System.out.println("LINE 230" + size);
-                    System.out.println("LINE 231" + listAccounts());
-                    return;
-                }
-
+        } else if (size == 1) {
+            Patron otherTemp = null;
+            if (list[0].compareTo(toAdd) > 0) {
+                otherTemp = list[0];
+                list[0] = null;
+                list[0] = toAdd;
+                list[1] = otherTemp;
+                size++;
+            } else {
+                list[1] = toAdd;
+                size++;
             }
-
+        } else {
+            Patron temp = null;
+            Patron prev = null;
+            Patron current = null;
+            for (int i = 1; i < size; i++) {
+                prev = list[i - 1];
+                current = list[i];
+                if (prev.compareTo(current) > 0) {
+                    temp = list[i - 1];
+                    list[i - 1] = null; // The previous is out of order
+                    list[i - 1] = toAdd; // Add it in the proper place
+                    list[i] = temp; // Re-add the temp
+                    size++;
+                    System.out.println("LINE 241" + size);
+                    return; // We're done here
+                }
+                i++; // Keep looking for something out of order
+            }
+            // If we're still in the method at this point, nothing must have
+            // been out of order,
+            // and we're at the end of the list, so insert the new patron at the
+            // back.
+            list[size] = toAdd;
+            size++;
         }
-
     }
+
+    // } else {
+    // System.out.println("HERE 210");
+    // // Set up a previous and a temp to check for out of order users
+    // Patron prev = null;
+    // Patron temp = null;
+    // // Start the search at 1 since the list has at least one patron at
+    // // this point
+    // for (int i = 1; i < size; i++) {
+    // prev = list[i - 1];
+    // if (prev.compareTo(toAdd) > 0) {
+    // System.out.println("LINE 219");
+    // System.out.println("LINE 220" + listAccounts());
+    // temp = list[i - 1]; // Save the previous user, it's out of
+    // // order
+    // list[i - 1] = null; // Remove it from the list
+    // list[i - 1] = toAdd; // Add the new patron to the place
+    // // where previous was located
+    // list[i] = temp; // Re-add the previous patron to the proper
+    // // place--behind the new user
+    // size++;
+    // // return; //Bail, we're done
+    // } else {
+    // // The else statement will execute if nothing is out of
+    // // order.
+    // // In that case, we add the patron to the rear.
+    // list[size - 1] = toAdd;
+    // size++; // And increase the size
+    //
+    // }
 
     /**
      * The is new patron method checks that a patron does not exist in the

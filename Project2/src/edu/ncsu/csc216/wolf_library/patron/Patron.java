@@ -97,16 +97,19 @@ public class Patron extends User {
             throw new IndexOutOfBoundsException();
         }
         if (pos == 0) {
-            return; //Do nothing, bail out of the method
+            return; // Do nothing, bail out of the method
         }
-        // If no exceptions were thrown and the position was not 0, move the book ahead
+        // If no exceptions were thrown and the position was not 0, move the
+        // book ahead
         reserveQueue.moveAheadOne(pos);
     }
-    
+
     /**
      * The unreserve method removes the book in the given position from the
      * reserve queue.
-     * @param pos the position of the book to unreserve
+     * 
+     * @param pos
+     *            the position of the book to unreserve
      */
     public void unReserve(int pos) {
         if (pos < 0) {
@@ -115,19 +118,21 @@ public class Patron extends User {
         if (pos >= reserveQueue.size()) {
             throw new IndexOutOfBoundsException();
         }
-        //If no exceptions were thrown, remove the book
+        // If no exceptions were thrown, remove the book
         reserveQueue.remove(pos);
     }
-    
+
     /**
      * The reserve method places the book at the end of the reserve queue.
-     * @param book a book to add to the end of the reserve queue
+     * 
+     * @param book
+     *            a book to add to the end of the reserve queue
      */
     public void reserve(Book book) {
         if (book == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
-        //If no exceptions were thrown, add the book to the end
+        // If no exceptions were thrown, add the book to the end
         if (checkedOut.size() < maxCheckedOut) {
             checkedOut.addToRear(book);
             numCheckedOut++;
@@ -135,25 +140,26 @@ public class Patron extends User {
             reserveQueue.addToRear(book);
         }
     }
-    
+
     /**
-     * The close account method closes the user's account
-     * and returns all checked out books to the library.
+     * The close account method closes the user's account and returns all
+     * checked out books to the library.
      */
     public void closeAccount() {
-        //Cycle through the queues in order to ensure we get all books.
-        //The reason for this is that the reserve queue automatically
-        //checks out books
+        // Cycle through the queues in order to ensure we get all books.
+        // The reason for this is that the reserve queue automatically
+        // checks out books
         for (int i = 0; i < checkedOut.size(); i++) {
             returnBook(i);
         }
     }
-    
-    
+
     /**
-     * The return book returns a book in the given position from the checked
-     * out list. It returns the book to the library inventory.
-     * @param pos the position in the checked out list to return
+     * The return book returns a book in the given position from the checked out
+     * list. It returns the book to the library inventory.
+     * 
+     * @param pos
+     *            the position in the checked out list to return
      */
     public void returnBook(int pos) {
         if (pos < 0) {
@@ -162,11 +168,11 @@ public class Patron extends User {
         if (pos >= checkedOut.size()) {
             throw new IndexOutOfBoundsException();
         }
-        //Remove the book from the list
-       Book toReturn = checkedOut.remove(pos);
-       //Check it back in
-       toReturn.backToInventory();
-       numCheckedOut--;
-      }
+        // Remove the book from the list
+        Book toReturn = checkedOut.remove(pos);
+        // Check it back in
+        toReturn.backToInventory();
+        numCheckedOut--;
     }
 
+}
