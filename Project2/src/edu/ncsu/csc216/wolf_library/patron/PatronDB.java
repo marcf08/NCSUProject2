@@ -142,7 +142,7 @@ public class PatronDB {
      *            the user id to remove from the database
      */
     public void cancelAccount(String id) {
-        System.out.println("LINE 141" + listAccounts());
+        System.out.println("LINE 145" + listAccounts());
         int num = findMatchingAccount(id);
         if (num == -1) {
             throw new IllegalArgumentException(Constants.EXP_INCORRECT);
@@ -226,36 +226,13 @@ public class PatronDB {
                 size++;
             }
         } else {
-            Patron temp = null;
-            Patron prev = null;
-            Patron current = null;
-            int i = 1;
-            while (i < size) { //TODO: LESS THAN OR EQUAL TO?
-                 prev = list[i - 1];
-                if (prev.compareTo(toAdd) > 0) {
-                    current = list[i];
-                    temp = list[i - 1]; // Save previous to a temporary variable
-                    list[i - 1] = null; // The previous is out of order, delete
-                                        // it
-                    size++;
-                    list[i + 1] = current;
-                    list[i] = temp; // Re-add the temp
-                    list[i - 1] = toAdd; // Add it in the proper place
-                    size++;
-                    System.out.println("LINE 245 " + temp.getId());
-                    System.out.println("LINE 246 LIST" + listAccounts());
-                    return;
-                }
-                i++;
+            int psn = size - 1;
+            while (psn >= 0 && list[psn].compareTo(toAdd) > 0) {
+                list[psn + 1] = list[psn];
+                psn--;
             }
-            // If we're still in the method at this point, nothing must have
-            // been out of order,
-            // and we're at the end of the list, so insert the new patron at the
-            // back.
-
+            list[psn+1] = toAdd;
             size++;
-            list[size + 1] = toAdd;
-
         }
     }
 
@@ -270,18 +247,18 @@ public class PatronDB {
      * @return true if the id is unique and false otherwise
      */
     private boolean isNewPatron(String id) {
-        System.out.println("LINE 269");
-        System.out.println("LINE 270: " + size);
+        System.out.println("LINE 250");
+        System.out.println("LINE 251: " + size);
         for (int i = 0; i < size; i++) {
-            System.out.println("LINE 272: " + i);
+            System.out.println("LINE 253: " + i);
             if (id.equals(list[i].getId())) {
-                System.out.println("LINE 274");
+                System.out.println("LINE 255");
                 // A user with the same id exists, return false
                 return false;
             }
         }
         // If we make it here, the user must be unique
-        System.out.println("LINE 280");
+        System.out.println("LINE 261");
         return true;
     }
 
