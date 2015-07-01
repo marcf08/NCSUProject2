@@ -119,15 +119,17 @@ public class PatronDB {
             // Null strings are illegal per the specifications
             throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
-        // Ensure the user id is unique
-        // TODO: CHANGE TO IS NEW
+        System.out.println("LINE 122");
         if (!isNewPatron(id)) {
+            System.out.println("LINE 124");
             throw new IllegalArgumentException();
         }
+        System.out.println("LINE 127");
         // If we make it here, the new patron is unique and valid
         // Add it alphabetically
+        System.out.println("LINE 130");
         insert(new Patron(id, password, maxAllowed));
-        System.out.println("LINE 128" + listAccounts());
+        System.out.println("LINE 132" + listAccounts());
 
     }
 
@@ -191,6 +193,7 @@ public class PatronDB {
             return; // Do nothing, no reordering needs to occur
         } else {
             for (int i = removedPos; i < size; i++) {
+                System.out.println("LINE 193 SHIFT in FOR LOOP");
                 list[i] = list[i + 1];
             }
         }
@@ -226,58 +229,36 @@ public class PatronDB {
             Patron temp = null;
             Patron prev = null;
             Patron current = null;
-            for (int i = 1; i < size; i++) {
-                prev = list[i - 1];
-                current = list[i];
-                if (prev.compareTo(current) > 0) {
-                    temp = list[i - 1];
-                    list[i - 1] = null; // The previous is out of order
-                    list[i - 1] = toAdd; // Add it in the proper place
-                    list[i] = temp; // Re-add the temp
+            int i = 1;
+            while (i < size) { //TODO: LESS THAN OR EQUAL TO?
+                 prev = list[i - 1];
+                if (prev.compareTo(toAdd) > 0) {
+                    current = list[i];
+                    temp = list[i - 1]; // Save previous to a temporary variable
+                    list[i - 1] = null; // The previous is out of order, delete
+                                        // it
                     size++;
-                    System.out.println("LINE 241" + size);
-                    return; // We're done here
+                    list[i + 1] = current;
+                    list[i] = temp; // Re-add the temp
+                    list[i - 1] = toAdd; // Add it in the proper place
+                    size++;
+                    System.out.println("LINE 245 " + temp.getId());
+                    System.out.println("LINE 246 LIST" + listAccounts());
+                    return;
                 }
-                i++; // Keep looking for something out of order
+                i++;
             }
             // If we're still in the method at this point, nothing must have
             // been out of order,
             // and we're at the end of the list, so insert the new patron at the
             // back.
-            list[size] = toAdd;
+
             size++;
+            list[size + 1] = toAdd;
+
         }
     }
 
-    // } else {
-    // System.out.println("HERE 210");
-    // // Set up a previous and a temp to check for out of order users
-    // Patron prev = null;
-    // Patron temp = null;
-    // // Start the search at 1 since the list has at least one patron at
-    // // this point
-    // for (int i = 1; i < size; i++) {
-    // prev = list[i - 1];
-    // if (prev.compareTo(toAdd) > 0) {
-    // System.out.println("LINE 219");
-    // System.out.println("LINE 220" + listAccounts());
-    // temp = list[i - 1]; // Save the previous user, it's out of
-    // // order
-    // list[i - 1] = null; // Remove it from the list
-    // list[i - 1] = toAdd; // Add the new patron to the place
-    // // where previous was located
-    // list[i] = temp; // Re-add the previous patron to the proper
-    // // place--behind the new user
-    // size++;
-    // // return; //Bail, we're done
-    // } else {
-    // // The else statement will execute if nothing is out of
-    // // order.
-    // // In that case, we add the patron to the rear.
-    // list[size - 1] = toAdd;
-    // size++; // And increase the size
-    //
-    // }
 
     /**
      * The is new patron method checks that a patron does not exist in the
@@ -289,13 +270,18 @@ public class PatronDB {
      * @return true if the id is unique and false otherwise
      */
     private boolean isNewPatron(String id) {
+        System.out.println("LINE 269");
+        System.out.println("LINE 270: " + size);
         for (int i = 0; i < size; i++) {
+            System.out.println("LINE 272: " + i);
             if (id.equals(list[i].getId())) {
+                System.out.println("LINE 274");
                 // A user with the same id exists, return false
                 return false;
             }
         }
         // If we make it here, the user must be unique
+        System.out.println("LINE 280");
         return true;
     }
 
