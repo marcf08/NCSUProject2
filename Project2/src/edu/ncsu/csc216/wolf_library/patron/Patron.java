@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_library.patron;
 
 import edu.ncsu.csc216.wolf_library.inventory.Book;
@@ -24,7 +21,7 @@ public class Patron extends User {
      * The num checked out field designates the current number of books a patron
      * can check out.
      */
-    private int numCheckedOut;
+    private int nowCheckedOut;
     /**
      * The checked out queue is a multi-purpose list of the books the user
      * current has checked out.
@@ -50,6 +47,7 @@ public class Patron extends User {
             throw new IllegalArgumentException(Constants.EXP_PATRON_ADMIN);
         }
         this.maxCheckedOut = maxCheckedOut;
+        nowCheckedOut = 0;
         checkedOut = new MultiPurposeList<Book>();
         reserveQueue = new MultiPurposeList<Book>();
     }
@@ -132,14 +130,13 @@ public class Patron extends User {
         if (book == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
-        // If no exceptions were thrown, add the book to the end
-        if (checkedOut.size() < maxCheckedOut) {
-            checkedOut.addToRear(book);
-            numCheckedOut++;
-        } else {
-            reserveQueue.addToRear(book);
+        reserveQueue.addToRear(book);
+        if (nowCheckedOut < maxCheckedOut) {
+            removeFirstAvailable();
+            
         }
     }
+
 
     /**
      * The close account method closes the user's account and returns all
@@ -172,7 +169,29 @@ public class Patron extends User {
         Book toReturn = checkedOut.remove(pos);
         // Check it back in
         toReturn.backToInventory();
-        numCheckedOut--;
+        nowCheckedOut--;
+    }
+    
+    /**
+     * The remove first available method removes the first book available from the 
+     * reserve queue to the checked out queue.
+     * @return firstAvail the first available book
+     */
+    private Book removeFirstAvailable() {
+        Book firstAvail = null;
+        int index = 0; 
+        //Find first available
+        for (int i = 0; i < reserveQueue.size(); i++) {
+            if (reserveQueue.lookAtItem(i).isAvailable()) {
+                firstAvail = reserveQueue.lookAtItem(i);
+                index = i;
+                break;
+                //Done, found it, break out of the method
+            }
+        }
+        checkedOut.addToRear(firstAvail);
+        reserveQueue.remove(index);
+        return firstAvail;
     }
 
 }

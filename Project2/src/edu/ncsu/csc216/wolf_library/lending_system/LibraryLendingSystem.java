@@ -116,10 +116,11 @@ public class LibraryLendingSystem implements LendingManager {
      */
     public void reserveItem(int position) {
         if (!accounts.isPatronLoggedIn()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
         }
-        Patron current = accounts.getCurrentPatron();
-        current.reserve(bookInventory.findItemAt(position));
+        
+        //TODO: REMOVE
+        accounts.getCurrentPatron().reserve(bookInventory.findItemAt(position));
     }
 
     /**
@@ -174,7 +175,7 @@ public class LibraryLendingSystem implements LendingManager {
         if (!accounts.isPatronLoggedIn()) {
             throw new IllegalStateException();
         }
-        return accounts.getCurrentPatron().traverseReserveQueue();
+        return accounts.getCurrentPatron().traverseCheckedOut();
     }
 
     /**

@@ -129,7 +129,7 @@ public class PatronDB {
         // Add it alphabetically
         System.out.println("LINE 130");
         insert(new Patron(id, password, maxAllowed));
-        System.out.println("LINE 132" + listAccounts());
+
 
     }
 
