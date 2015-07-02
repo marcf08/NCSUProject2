@@ -61,7 +61,9 @@ public class Patron extends User {
     public String traverseReserveQueue() {
         String books = "";
         for (int i = 0; i < reserveQueue.size(); i++) {
-            books = books + reserveQueue.lookAtItem(i) + "\n";
+            if (reserveQueue.lookAtItem(i) != null) {
+                books = books + reserveQueue.lookAtItem(i).toString() + "\n";
+            }
         }
         return books;
     }
@@ -75,7 +77,9 @@ public class Patron extends User {
     public String traverseCheckedOut() {
         String books = "";
         for (int i = 0; i < checkedOut.size(); i++) {
-            books = books + checkedOut.lookAtItem(i) + "\n";
+            if (checkedOut.lookAtItem(i) != null) {
+                books = books + checkedOut.lookAtItem(i).toString() + "\n";
+            }
         }
         return books;
     }
@@ -133,10 +137,9 @@ public class Patron extends User {
         reserveQueue.addToRear(book);
         if (nowCheckedOut < maxCheckedOut) {
             removeFirstAvailable();
-            
         }
-    }
 
+    }
 
     /**
      * The close account method closes the user's account and returns all
@@ -171,26 +174,29 @@ public class Patron extends User {
         toReturn.backToInventory();
         nowCheckedOut--;
     }
-    
+
     /**
-     * The remove first available method removes the first book available from the 
-     * reserve queue to the checked out queue.
+     * The remove first available method removes the first book available from
+     * the reserve queue to the checked out queue.
+     * 
      * @return firstAvail the first available book
      */
     private Book removeFirstAvailable() {
         Book firstAvail = null;
-        int index = 0; 
-        //Find first available
+        int index = 0;
+        // Find first available
         for (int i = 0; i < reserveQueue.size(); i++) {
             if (reserveQueue.lookAtItem(i).isAvailable()) {
                 firstAvail = reserveQueue.lookAtItem(i);
                 index = i;
                 break;
-                //Done, found it, break out of the method
+                // Done, found it, break out of the method
             }
         }
-        checkedOut.addToRear(firstAvail);
-        reserveQueue.remove(index);
+        if (firstAvail != null) {
+            checkedOut.addToRear(firstAvail);
+            reserveQueue.remove(index);
+        }
         return firstAvail;
     }
 
