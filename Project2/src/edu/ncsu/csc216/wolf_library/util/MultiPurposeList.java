@@ -61,7 +61,7 @@ public class MultiPurposeList<T> {
      *            the position of the item requested
      * @return the data requested at a specific position
      */
-    public Object lookAtItem(int pos) {
+    public T lookAtItem(int pos) {
         // Check the client's request to ensure it's a valid position
         if (pos >= size()) {
             throw new IndexOutOfBoundsException();
