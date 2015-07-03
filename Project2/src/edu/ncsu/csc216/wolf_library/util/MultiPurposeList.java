@@ -2,12 +2,11 @@ package edu.ncsu.csc216.wolf_library.util;
 
 import java.util.NoSuchElementException;
 
-import edu.ncsu.csc216.wolf_library.inventory.Book;
 
 /**
  * The multi purpose list creates a multi-purpose list that works like a linked
  * list. It has a nested class called Node that corresponds to an element of the
- * list. The list works for string types.
+ * list. The list works for generic type T.
  * 
  * @author Marcus
  *
@@ -30,12 +29,12 @@ public class MultiPurposeList<T> {
      * 
      * @param pos
      *            the position of the item to be added
-     * @param item
+     * @param temp
      *            the item to add to the list
      */
-    public void addItem(int pos, Object item) {
+    public void addItem(int pos, T temp) {
         if (pos == 0) {
-            head = new Node(item, head);
+            head = new Node(temp, head);
         } else if (head != null && pos > 0) {
             iterator = head;
             while (iterator != null && pos > 1) {
@@ -44,7 +43,7 @@ public class MultiPurposeList<T> {
             }
         }
         if (iterator != null) {
-            iterator.link = new Node(item, iterator.link);
+            iterator.link = new Node(temp, iterator.link);
         }
 
         // Ensure we reset the iterator after the operation
@@ -92,7 +91,7 @@ public class MultiPurposeList<T> {
      * @param item
      *            the item to add to the rear of the list
      */
-    public void addToRear(Book item) {
+    public void addToRear(T item) {
         if (isEmpty()) { // If the list is empty, the item gets added to the
                          // first position
             head = new Node(item, head);
@@ -128,7 +127,7 @@ public class MultiPurposeList<T> {
      *            the position of the item to remove
      * @return the item that was removed
      */
-    public Object remove(int pos) {
+    public T remove(int pos) {
 
         // First ensure the position is valid
         if (pos >= size()) {
@@ -141,7 +140,7 @@ public class MultiPurposeList<T> {
 
         // Special case for if the front item needs to be removed
         if (pos == 0) {
-            Object headRemove = head.data;
+            T headRemove = head.data;
             head = head.link;
             return headRemove;
         }
@@ -155,7 +154,7 @@ public class MultiPurposeList<T> {
             pos--;
         }
 
-        Object removed = current.data;
+        T removed = current.data;
 
         if (current != null) { // current should point to the item to be removed
             if (current == head) { // remove item 0?
@@ -187,7 +186,7 @@ public class MultiPurposeList<T> {
 
             resetIterator(); // Reset the iterator for good measure
 
-            Object temp = iterator.data; // "Store" the item after head
+            T temp = iterator.data; // "Store" the item after head
 
             head = head.link; // Head becomes the reference to the next
 
@@ -197,7 +196,7 @@ public class MultiPurposeList<T> {
 
         } else {
             //Simple swap algorithm
-            Object temp = remove(pos);
+            T temp = remove(pos);
             addItem(pos - 1, temp); 
 
         }
@@ -277,11 +276,11 @@ public class MultiPurposeList<T> {
      * @author Marcus
      *
      */
-    private static class Node {
+    private class Node {
         /**
          * The string data member is an element of data in the list.
          */
-        public Object data;
+        public T data;
         /**
          * The link references the next node in a list of nodes.
          */
@@ -291,7 +290,7 @@ public class MultiPurposeList<T> {
          * The constructor accepts a parameter of book data and links (refers)
          * to another node.
          */
-        public Node(Object item, Node link) {
+        public Node(T item, Node link) {
             this.data = item;
             this.link = link;
         }
