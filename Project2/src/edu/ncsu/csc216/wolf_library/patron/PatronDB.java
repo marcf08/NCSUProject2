@@ -119,7 +119,7 @@ public class PatronDB {
             throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
         if (!isNewPatron(id)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_PATRON_DB_FULL);
         }
         // If we make it here, the new patron is unique and valid
         // Add it alphabetically
