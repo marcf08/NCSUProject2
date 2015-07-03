@@ -61,8 +61,8 @@ public class Patron extends User {
     public String traverseReserveQueue() {
         String books = "";
         for (int i = 0; i < reserveQueue.size(); i++) {
-            if (reserveQueue.lookAtItem(i) != null) {
-                books = books + reserveQueue.lookAtItem(i).toString() + "\n";
+            if (reserveQueue.lookAtItemN(i) != null) {
+                books = books + reserveQueue.lookAtItemN(i).toString() + "\n";
             }
         }
         return books;
@@ -77,8 +77,8 @@ public class Patron extends User {
     public String traverseCheckedOut() {
         String books = "";
         for (int i = 0; i < checkedOut.size(); i++) {
-            if (checkedOut.lookAtItem(i) != null) {
-                books = books + checkedOut.lookAtItem(i).toString() + "\n";
+            if (checkedOut.lookAtItemN(i) != null) {
+                books = books + checkedOut.lookAtItemN(i).toString() + "\n";
             }
         }
         return books;
@@ -159,13 +159,13 @@ public class Patron extends User {
     private boolean alreadyExists(Book book) {
         boolean existsInReserve = false;
         for (int i = 0; i < reserveQueue.size(); i++) {
-            if (reserveQueue.lookAtItem(i).toString().equals(book.toString())) {
+            if (reserveQueue.lookAtItemN(i).toString().equals(book.toString())) {
                 existsInReserve = true;
             }
         }
         boolean existsInCheckedOut = false;
         for (int i = 0; i < checkedOut.size(); i++) {
-            if (checkedOut.lookAtItem(i).toString().equals(book.toString())) {
+            if (checkedOut.lookAtItemN(i).toString().equals(book.toString())) {
                 existsInCheckedOut = true;
             }
         }
@@ -228,8 +228,8 @@ public class Patron extends User {
         int index = 0;
         // Find first available
         for (int i = 0; i < reserveQueue.size(); i++) {
-            if (((Book) reserveQueue.lookAtItem(i)).isAvailable()) {
-                firstAvail = (Book) reserveQueue.lookAtItem(i);
+            if (((Book) reserveQueue.lookAtItemN(i)).isAvailable()) {
+                firstAvail = (Book) reserveQueue.lookAtItemN(i);
                 index = i;
                 break;
                 // Done, found it, break out of the method
