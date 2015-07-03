@@ -30,7 +30,7 @@ public class LibraryAccountSystemTest {
        testPatrons = new PatronDB();
        //Add some test patrons
        for (int i = 0; i < 19; i++) {
-           testPatrons.addNewPatron("patron, password, maxAllowed);
+           testPatrons.addNewPatron("patron" + i, "password" + i, 1);
        }
         
     }
