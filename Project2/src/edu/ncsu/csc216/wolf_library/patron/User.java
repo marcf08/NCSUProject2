@@ -24,10 +24,10 @@ public abstract class User  implements Comparable<User> {
      * will call this constructor in order to implement their functionality.
      */
     public User(String id, String password) {
-        if (id.trim() == null) {
+        if (id == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL);
         }
-        if (password.trim() == null) {
+        if (password == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL);
         }
         if (containsWhitespace(id.trim())) {

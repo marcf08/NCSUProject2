@@ -134,11 +134,42 @@ public class Patron extends User {
         if (book == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
-        reserveQueue.addToRear(book);
+        // Check to see if the book exists in either of the lists, if not, add
+        // it to the rear
+        if (alreadyExists(book)) {
+            return; // Do nothing
+        } else {
+            reserveQueue.addToRear(book);
+        }
         if (nowCheckedOut < maxCheckedOut) {
             removeFirstAvailable();
         }
+    }
 
+    /**
+     * The already exists method checks both queues to see if the book already
+     * exists. Even though it's not specified in the project description, we
+     * should not show books that already exists (nor allow it to be checked out
+     * multiple times).
+     * 
+     * @param book
+     *            a book to see if it exists or not
+     * @return true if the book exists or false otherwise
+     */
+    private boolean alreadyExists(Book book) {
+        boolean existsInReserve = false;
+        for (int i = 0; i < reserveQueue.size(); i++) {
+            if (reserveQueue.lookAtItem(i).toString().equals(book.toString())) {
+                existsInReserve = true;
+            }
+        }
+        boolean existsInCheckedOut = false;
+        for (int i = 0; i < checkedOut.size(); i++) {
+            if (checkedOut.lookAtItem(i).toString().equals(book.toString())) {
+                existsInCheckedOut = true;
+            }
+        }
+        return (existsInReserve || existsInCheckedOut);
     }
 
     /**
@@ -149,8 +180,19 @@ public class Patron extends User {
         // Cycle through the queues in order to ensure we get all books.
         // The reason for this is that the reserve queue automatically
         // checks out books
-        for (int i = 0; i < checkedOut.size(); i++) {
-            returnBook(i);
+        if (!checkedOut.isEmpty()) {
+            for (int i = 0; i < checkedOut.size(); i++) {
+                returnBook(i);
+                i--; //If this is not here the size will change--in effect the loop shrinks as the size does
+            }
+        }
+
+        // Remove reserve books for good measure
+        if (!reserveQueue.isEmpty()) {
+            for (int i = 0; i < reserveQueue.size(); i++) {
+                reserveQueue.remove(i);
+                i--; //If this is not here the size will change--in effect the loop shrinks as the size does
+            }
         }
     }
 

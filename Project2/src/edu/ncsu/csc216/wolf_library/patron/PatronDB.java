@@ -56,7 +56,6 @@ public class PatronDB {
             throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         }
         for (int i = 0; i < size; i++) {
-            System.out.println("LINE 59");
             if (list[i].getId().equals(id) && list[i].verifyPassword(password)) {
                 return list[i];
             }
@@ -119,15 +118,11 @@ public class PatronDB {
             // Null strings are illegal per the specifications
             throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
-        System.out.println("LINE 122");
         if (!isNewPatron(id)) {
-            System.out.println("LINE 124");
             throw new IllegalArgumentException();
         }
-        System.out.println("LINE 127");
         // If we make it here, the new patron is unique and valid
         // Add it alphabetically
-        System.out.println("LINE 130");
         insert(new Patron(id, password, maxAllowed));
 
 
@@ -142,7 +137,6 @@ public class PatronDB {
      *            the user id to remove from the database
      */
     public void cancelAccount(String id) {
-        System.out.println("LINE 145" + listAccounts());
         int num = findMatchingAccount(id);
         if (num == -1) {
             throw new IllegalArgumentException(Constants.EXP_INCORRECT);
@@ -193,7 +187,6 @@ public class PatronDB {
             return; // Do nothing, no reordering needs to occur
         } else {
             for (int i = removedPos; i < size; i++) {
-                System.out.println("LINE 193 SHIFT in FOR LOOP");
                 list[i] = list[i + 1];
             }
         }
@@ -247,18 +240,13 @@ public class PatronDB {
      * @return true if the id is unique and false otherwise
      */
     private boolean isNewPatron(String id) {
-        System.out.println("LINE 250");
-        System.out.println("LINE 251: " + size);
         for (int i = 0; i < size; i++) {
-            System.out.println("LINE 253: " + i);
             if (id.equals(list[i].getId())) {
-                System.out.println("LINE 255");
                 // A user with the same id exists, return false
                 return false;
             }
         }
         // If we make it here, the user must be unique
-        System.out.println("LINE 261");
         return true;
     }
 
