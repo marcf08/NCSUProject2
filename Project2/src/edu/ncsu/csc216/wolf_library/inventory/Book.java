@@ -45,8 +45,10 @@ public class Book implements Comparable<Book> {
         // Now build the rest of the title/info String
         String titleAuthor = "";
         while (fromFile.hasNext()) {
-            titleAuthor = " " + titleAuthor + fromFile.next();
+            titleAuthor = titleAuthor + fromFile.next() + " ";
         }
+        
+        titleAuthor.trim();
 
         fromFile.close(); // Done with the scanner at this point
 
