@@ -263,7 +263,7 @@ public class MultiPurposeList<T> {
      * 
      * @return the data of the node that the iterator currently points to
      */
-    public Object next() {
+    public T next() {
         if (!hasNext()) {
             throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
         }
