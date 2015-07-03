@@ -46,9 +46,12 @@ public class Book implements Comparable<Book> {
         String titleAuthor = "";
         while (fromFile.hasNext()) {
             titleAuthor = titleAuthor + fromFile.next() + " ";
+
+     
         }
         
-        titleAuthor.trim();
+      
+        
 
         fromFile.close(); // Done with the scanner at this point
 
@@ -70,7 +73,8 @@ public class Book implements Comparable<Book> {
         }
 
         // Finally, set this to the instance variable
-        this.info = titleAuthor;
+        this.info = titleAuthor.trim();
+        
     }
 
     /**
