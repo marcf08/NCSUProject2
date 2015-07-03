@@ -16,8 +16,9 @@ import org.junit.Test;
  */
 public class LibraryAccountSystemTest {
     /**
-     * Instance field for patron database used for testing
+     * Instance field for patron database used for testing.
      */
+    private PatronDB testPatrons;
     
     
     /**
@@ -26,7 +27,11 @@ public class LibraryAccountSystemTest {
      */
     @Before
     public void setUp() throws Exception {
-       
+       testPatrons = new PatronDB();
+       //Add some test patrons
+       for (int i = 0; i < 19; i++) {
+           testPatrons.addNewPatron("patron, password, maxAllowed);
+       }
         
     }
 
