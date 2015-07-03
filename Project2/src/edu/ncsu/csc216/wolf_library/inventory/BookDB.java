@@ -83,9 +83,9 @@ public class BookDB {
             Book temp = null; //Temporary book for shuffling items
             int i = 1; // Index to send down the list
             while (i <= books.size()) {
-                prev = books.lookAtItem(i - 1); //Define the previous book
+                prev = (Book) books.lookAtItem(i - 1); //Define the previous book
                 if (prev.compareTo(book) > 0) { //Check the compare values
-                    temp = books.remove(i - 1); //Remove the previous, it's out of order
+                    temp = (Book) books.remove(i - 1); //Remove the previous, it's out of order
                     books.addItem(i - 1, book); //Add the new book to it's place
                     books.addItem(i, temp); //Re-add the out of order book to the proper place
                     //Once this is done, there's no need to stay in the method.
@@ -135,7 +135,7 @@ public class BookDB {
         if (pos >= books.size()) {
             throw new IndexOutOfBoundsException();
         }
-        return books.lookAtItem(pos);
+        return (Book) books.lookAtItem(pos);
 
     }
 

@@ -211,7 +211,7 @@ public class Patron extends User {
             throw new IndexOutOfBoundsException();
         }
         // Remove the book from the list
-        Book toReturn = checkedOut.remove(pos);
+        Book toReturn = (Book) checkedOut.remove(pos);
         // Check it back in
         toReturn.backToInventory();
         nowCheckedOut--;
@@ -228,8 +228,8 @@ public class Patron extends User {
         int index = 0;
         // Find first available
         for (int i = 0; i < reserveQueue.size(); i++) {
-            if (reserveQueue.lookAtItem(i).isAvailable()) {
-                firstAvail = reserveQueue.lookAtItem(i);
+            if (((Book) reserveQueue.lookAtItem(i)).isAvailable()) {
+                firstAvail = (Book) reserveQueue.lookAtItem(i);
                 index = i;
                 break;
                 // Done, found it, break out of the method
