@@ -136,41 +136,13 @@ public class Patron extends User {
         }
         // Check to see if the book exists in either of the lists, if not, add
         // it to the rear
-        if (alreadyExists(book)) {
-            return; // Do nothing
-        } else {
-            reserveQueue.addToRear(book);
-        }
+       reserveQueue.addToRear(book);
+
         if (nowCheckedOut < maxCheckedOut) {
             removeFirstAvailable();
         }
     }
 
-    /**
-     * The already exists method checks both queues to see if the book already
-     * exists. Even though it's not specified in the project description, we
-     * should not show books that already exists (nor allow it to be checked out
-     * multiple times).
-     * 
-     * @param book
-     *            a book to see if it exists or not
-     * @return true if the book exists or false otherwise
-     */
-    private boolean alreadyExists(Book book) {
-        boolean existsInReserve = false;
-        for (int i = 0; i < reserveQueue.size(); i++) {
-            if (reserveQueue.lookAtItemN(i).toString().equals(book.toString())) {
-                existsInReserve = true;
-            }
-        }
-        boolean existsInCheckedOut = false;
-        for (int i = 0; i < checkedOut.size(); i++) {
-            if (checkedOut.lookAtItemN(i).toString().equals(book.toString())) {
-                existsInCheckedOut = true;
-            }
-        }
-        return (existsInReserve || existsInCheckedOut);
-    }
 
     /**
      * The close account method closes the user's account and returns all

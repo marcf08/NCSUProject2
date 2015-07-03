@@ -198,7 +198,8 @@ public class MultiPurposeList<T> {
             //Simple swap algorithm
             T temp = remove(pos);
             addItem(pos - 1, temp); 
-
+            
+            
         }
 
     }

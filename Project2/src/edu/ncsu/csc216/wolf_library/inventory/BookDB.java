@@ -135,7 +135,7 @@ public class BookDB {
         if (pos >= books.size()) {
             throw new IndexOutOfBoundsException();
         }
-        return (Book) books.lookAtItemN(pos);
+        return books.lookAtItemN(pos);
 
     }
 
