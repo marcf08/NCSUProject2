@@ -33,7 +33,7 @@ public class MultiPurposeList<T> {
      * @param item
      *            the item to add to the list
      */
-    public void addItem(int pos, Book item) {
+    public void addItem(int pos, Object item) {
         if (pos == 0) {
             head = new Node(item, head);
         } else if (head != null && pos > 0) {
@@ -62,7 +62,7 @@ public class MultiPurposeList<T> {
      *            the position of the item requested
      * @return the data requested at a specific position
      */
-    public Book lookAtItem(int pos) {
+    public Object lookAtItem(int pos) {
         // Check the client's request to ensure it's a valid position
         if (pos >= size()) {
             throw new IndexOutOfBoundsException();
@@ -128,7 +128,7 @@ public class MultiPurposeList<T> {
      *            the position of the item to remove
      * @return the item that was removed
      */
-    public Book remove(int pos) {
+    public Object remove(int pos) {
 
         // First ensure the position is valid
         if (pos >= size()) {
@@ -141,7 +141,7 @@ public class MultiPurposeList<T> {
 
         // Special case for if the front item needs to be removed
         if (pos == 0) {
-            Book headRemove = head.data;
+            Object headRemove = head.data;
             head = head.link;
             return headRemove;
         }
@@ -155,7 +155,7 @@ public class MultiPurposeList<T> {
             pos--;
         }
 
-        Book removed = current.data;
+        Object removed = current.data;
 
         if (current != null) { // current should point to the item to be removed
             if (current == head) { // remove item 0?
@@ -187,7 +187,7 @@ public class MultiPurposeList<T> {
 
             resetIterator(); // Reset the iterator for good measure
 
-            Book temp = iterator.data; // "Store" the item after head
+            Object temp = iterator.data; // "Store" the item after head
 
             head = head.link; // Head becomes the reference to the next
 
@@ -197,7 +197,7 @@ public class MultiPurposeList<T> {
 
         } else {
             //Simple swap algorithm
-            Book temp = remove(pos);
+            Object temp = remove(pos);
             addItem(pos - 1, temp); 
 
         }
@@ -264,7 +264,7 @@ public class MultiPurposeList<T> {
      * 
      * @return the data of the node that the iterator currently points to
      */
-    public Book next() {
+    public Object next() {
         if (!hasNext()) {
             throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
         }
@@ -281,7 +281,7 @@ public class MultiPurposeList<T> {
         /**
          * The string data member is an element of data in the list.
          */
-        public Book data;
+        public Object data;
         /**
          * The link references the next node in a list of nodes.
          */
@@ -291,7 +291,7 @@ public class MultiPurposeList<T> {
          * The constructor accepts a parameter of book data and links (refers)
          * to another node.
          */
-        public Node(Book item, Node link) {
+        public Node(Object item, Node link) {
             this.data = item;
             this.link = link;
         }
