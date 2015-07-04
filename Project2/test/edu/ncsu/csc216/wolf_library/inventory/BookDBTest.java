@@ -64,7 +64,6 @@ public class BookDBTest {
                 "All the Pretty Horses by Cormac McCarthy\r\n" + 
                 "Why I am Not a Christian by Bertrand Russell\r\n" + 
                 "Lolita by Vladimir Nabokov";
-        
         assertNotEquals(notEquals, testDB.traverse());
     }
 

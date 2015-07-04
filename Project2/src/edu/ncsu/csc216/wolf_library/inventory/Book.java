@@ -3,7 +3,6 @@
  */
 package edu.ncsu.csc216.wolf_library.inventory;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_library.util.Constants;
@@ -16,7 +15,7 @@ import edu.ncsu.csc216.wolf_library.util.Constants;
  * @author Marcus
  *
  */
-public class Book implements Comparable <Book> {
+public class Book implements Comparable<Book> {
     /**
      * The info string gives information about the book, including the author
      * and title.
@@ -36,14 +35,14 @@ public class Book implements Comparable <Book> {
      */
     public Book(String info) {
         Scanner fromFile = new Scanner(info); // Create a scanner to read the
-                                              // line from a file
-        
+        // line from a file
+
         if (!fromFile.hasNextInt()) {
             throw new IllegalArgumentException(Constants.EXP_BAD_FILE);
         }
-        
+
         int numAvailable = fromFile.nextInt(); // Get the number available in
-                                               // String form
+        // String form
 
         // The scanner has now advanced past the numbers available (if it
         // exists)
@@ -52,13 +51,13 @@ public class Book implements Comparable <Book> {
         String titleAuthor = "";
         while (fromFile.hasNext()) {
             titleAuthor = titleAuthor + fromFile.next() + " ";
-    
+
         }
 
         fromFile.close(); // Done with the scanner at this point
 
         this.numAvailable = numAvailable;
-        
+
         // Invalid book title represented by the null String
         if (titleAuthor.equals("")) {
             throw new IllegalArgumentException();
@@ -66,7 +65,6 @@ public class Book implements Comparable <Book> {
 
         // Finally, set this to the instance variable
         this.info = titleAuthor.trim();
-        
     }
 
     /**
@@ -177,9 +175,10 @@ public class Book implements Comparable <Book> {
         if (second.startsWith("a ")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
-                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
-                                                                 // amended
-                                                                 // title
+                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build
+                                                                       // the
+                // amended
+                // title
             }
 
         }
@@ -188,9 +187,10 @@ public class Book implements Comparable <Book> {
         else if (second.startsWith("an ")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
-                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
-                                                                 // amended
-                                                                 // title
+                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build
+                                                                       // the
+                // amended
+                // title
             }
 
         }
@@ -199,9 +199,10 @@ public class Book implements Comparable <Book> {
         else if (second.startsWith("the ")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
-                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
-                                                                 // amended
-                                                                 // title
+                correctedInfo = correctedInfo + bookInfo.next() + " "; // Build
+                                                                       // the
+                // amended
+                // title
             }
         }
 

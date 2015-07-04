@@ -51,37 +51,11 @@ public class MultiPurposeListTest {
      */
     @Test
     public void testAddItem() {
-        //Test null pointer
-        String toAdd = null;
-        try {
-            testList.addItem(0, toAdd);
-            fail(); //Should not get here
-        } catch (NullPointerException e) {
-            //This should get thrown
-        }
-        
-        //Test negative index
-        String valid = "valid item";
-        try {
-            testList.addItem(-5,valid);
-            fail(); //Should not get here
-        } catch (IndexOutOfBoundsException e) {
-            //This should get thrown
-        }
-        
         //Add a valid item
-        testList.addToRear(valid);
-        
-        //Test an index too high
-        try {
-            testList.addItem(25, "attempt");
-            fail(); //Should not get here
-        } catch (IndexOutOfBoundsException e) {
-            //This should get thrown
-        }
+        testList.addToRear("valid");
         
         //Test to ensure the valid item was added
-        assertEquals(valid, testList.lookAtItemN(0));
+        assertEquals("valid", testList.lookAtItemN(0));
     }
 
     /**

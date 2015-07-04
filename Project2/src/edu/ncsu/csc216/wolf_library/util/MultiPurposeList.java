@@ -33,16 +33,6 @@ public class MultiPurposeList<T> {
      *            the item to add to the list
      */
     public void addItem(int pos, T temp) {
-        if (pos < 0) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (pos > size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        if (temp == null) {
-            throw new NullPointerException();
-        }
-        
         if (pos == 0) {
             head = new Node(temp, head);
         } else if (head != null && pos > 0) {
@@ -105,7 +95,6 @@ public class MultiPurposeList<T> {
         if (item == null) {
             throw new NullPointerException();
         }
-        
         if (isEmpty()) { // If the list is empty, the item gets added to the
                          // first position
             head = new Node(item, head);
@@ -193,14 +182,6 @@ public class MultiPurposeList<T> {
      *            the item to advance forward
      */
     public void moveAheadOne(int pos) {
-        if (pos >= size()) {
-            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
-        }
-
-        if (pos < 0) {
-            throw new IndexOutOfBoundsException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
-        }
-        
         if (pos == 0) {
             // Do nothing
             return;
@@ -287,18 +268,18 @@ public class MultiPurposeList<T> {
      * @return the data of the node that the iterator currently points to
      */
     public T next() {
-        if (!hasNext()) {
-            throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
-        }
         if (iterator == null) {
             throw new NoSuchElementException();
         }
-        
+        if (!hasNext()) {
+            throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
+        }
         T data = iterator.data; //Save the data
         
         iterator = iterator.link; //Shift the iterator       
         
         return data; //Return the data
+        
     }
 
     /**

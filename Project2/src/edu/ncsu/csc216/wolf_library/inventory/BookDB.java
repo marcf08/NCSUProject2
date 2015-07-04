@@ -59,8 +59,8 @@ public class BookDB {
         while (readInput.hasNextLine()) {
             String lineFromFile = readInput.nextLine();
             insertInOrder(new Book(lineFromFile));
-
         }
+        System.out.println(traverse());
 
     }
 
@@ -114,7 +114,7 @@ public class BookDB {
         String bookListing = "";
         int i = 0;
         while (i < books.size()) {
-            bookListing = bookListing + books.lookAtItemN(i).toString() + " \n";
+            bookListing = bookListing + books.lookAtItemN(i).getInfo() + "\n";
             i++;
 
         }
