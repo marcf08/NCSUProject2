@@ -190,7 +190,7 @@ public class LibraryLendingSystemTest {
         library.reserveItem(0);
   
         //Book should appear in checked out queue
-        assertEquals("All the Pretty Horses by Cormac McCarthy\n", library.traverseCheckedOut());
+        assertEquals("All the Pretty Horses by Cormac McCarthy", library.traverseCheckedOut());
         
     }
 
@@ -242,7 +242,7 @@ public class LibraryLendingSystemTest {
         library.login("user", "pw");
         library.reserveItem(2);
         //The book with no copies should now be in the reserve queue
-        assertEquals("* Great Short Works of Leo Tolstoy \n", library.traverseReserveQueue());
+        assertEquals("Great Short Works of Leo Tolstoy", library.traverseReserveQueue());
         
         //Try to remove it
         library.removeSelectedFromReserves(0);
@@ -336,10 +336,9 @@ public class LibraryLendingSystemTest {
         
         library.login("user", "pw");
         library.reserveItem(0);
-        System.out.println(library.traverseCheckedOut());
         
         //The queue should have the book in it
-        assertEquals("All the Pretty Horses by Cormac McCarthy\n", library.traverseCheckedOut());
+        assertEquals("All the Pretty Horses by Cormac McCarthy", library.traverseCheckedOut());
         
         library.returnItem(0);
         
