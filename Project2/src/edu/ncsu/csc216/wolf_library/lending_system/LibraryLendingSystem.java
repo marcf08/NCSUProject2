@@ -137,6 +137,7 @@ public class LibraryLendingSystem implements LendingManager {
         if (position < 0) {
             throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
+
         Patron current = accounts.getCurrentPatron();
         current.moveAheadOneInReserves(position);
     }

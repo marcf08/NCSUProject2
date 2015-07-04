@@ -172,13 +172,10 @@ public class MultiPurposeList<T> {
             pos--;
         }
 
-        T removed = null;
-        if (current.data != null) {
-            removed = current.data;
-        }
+        T removed = current.data;
 
         if (current != null) { // current should point to the item to be removed
-            if (current == head) { // remove item 0?
+            if (current == head) { 
                 head = head.link;
             } else { // not removing item 0
                 previous.link = current.link;
@@ -198,6 +195,10 @@ public class MultiPurposeList<T> {
      *            the item to advance forward
      */
     public void moveAheadOne(int pos) {
+        if (pos > size()) {
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
+        }
+                
         if (pos == 0) {
             // Do nothing
             return;

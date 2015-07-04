@@ -81,7 +81,7 @@ public class Patron extends User {
         String books = "";
         for (int i = 0; i < checkedOut.size(); i++) {
             if (checkedOut.lookAtItemN(i) != null) {
-                books = books + checkedOut.lookAtItemN(i).toString() + "\n";
+                books = books + checkedOut.lookAtItemN(i) + "\n";
             }
         }
         return books;
