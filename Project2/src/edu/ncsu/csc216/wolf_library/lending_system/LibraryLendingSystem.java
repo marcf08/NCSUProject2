@@ -1,5 +1,6 @@
 package edu.ncsu.csc216.wolf_library.lending_system;
 
+
 import edu.ncsu.csc216.wolf_library.inventory.BookDB;
 import edu.ncsu.csc216.wolf_library.patron.AccountManager;
 import edu.ncsu.csc216.wolf_library.patron.LibraryAccountSystem;
@@ -75,7 +76,7 @@ public class LibraryLendingSystem implements LendingManager {
      */
     public void addNewPatron(String id, String password, int num) {
         if (!accounts.isAdminLoggedIn()) {
-            throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
+            throw new IllegalStateException(Constants.EXP_ACCESS_DENIED);
         }
         accounts.addNewPatron(id, password, num);
     }
@@ -116,7 +117,7 @@ public class LibraryLendingSystem implements LendingManager {
      */
     public void reserveItem(int position) {
         if (!accounts.isPatronLoggedIn()) {
-            throw new IllegalStateException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
+            throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
         }
         
         accounts.getCurrentPatron().reserve(bookInventory.findItemAt(position));
@@ -133,6 +134,9 @@ public class LibraryLendingSystem implements LendingManager {
         if (!accounts.isPatronLoggedIn()) {
             throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
         }
+        if (position < 0) {
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
+        }
         Patron current = accounts.getCurrentPatron();
         current.moveAheadOneInReserves(position);
     }
@@ -147,6 +151,9 @@ public class LibraryLendingSystem implements LendingManager {
     public void removeSelectedFromReserves(int position) {
         if (!accounts.isPatronLoggedIn()) {
             throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
+        }
+        if (position < 0) {
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
         Patron current = accounts.getCurrentPatron();
         current.unReserve(position);
@@ -186,6 +193,9 @@ public class LibraryLendingSystem implements LendingManager {
     public void returnItem(int position) {
         if (!accounts.isPatronLoggedIn()) {
             throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
+        }
+        if (position < 0) {
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
         accounts.getCurrentPatron().returnBook(position);
     }
