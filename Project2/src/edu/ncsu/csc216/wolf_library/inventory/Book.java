@@ -40,7 +40,7 @@ public class Book implements Comparable<Book> {
         // line from a file
 
         if (!fromFile.hasNextInt()) {
-            throw new IllegalArgumentException(fromFile.next());
+            throw new IllegalArgumentException(fromFile.nextLine());
         }
 
         this.numAvailable = fromFile.nextInt(); // Get the number available in
