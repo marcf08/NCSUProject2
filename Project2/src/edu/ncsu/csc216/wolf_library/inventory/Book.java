@@ -34,6 +34,7 @@ public class Book implements Comparable<Book> {
      * by the Wolf Library program.
      * @param info the book's author and title information
      */
+    @SuppressWarnings("resource")
     public Book(String info) {
         Scanner fromFile = new Scanner(info); // Create a scanner to read the
         // line from a file

@@ -268,7 +268,7 @@ public class LibraryLendingSystemTest {
         
         library.login("user", "pw");
         //Queue should be empty
-        assertEquals("",library.traverseReserveQueue());
+        assertEquals("", library.traverseReserveQueue());
                
         library.logout();
         
@@ -299,7 +299,7 @@ public class LibraryLendingSystemTest {
         
         library.login("user", "pw");
         //Queue should be empty
-        assertEquals("",library.traverseCheckedOut());
+        assertEquals("", library.traverseCheckedOut());
                
         library.logout();
         

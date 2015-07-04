@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
+ * The patron DB creates a list of patrons in order to test the methods of the Patron DB class.
+ * 
+ * 
  * @author Marcus
  *
  */
