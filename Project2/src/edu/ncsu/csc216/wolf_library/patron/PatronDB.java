@@ -46,10 +46,10 @@ public class PatronDB {
      */
     public Patron verifyPatron(String id, String password) {
         if (id == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         }
         if (password == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_INCORRECT);
         }
         int indexOfMatch = findMatchingAccount(id);
         if (indexOfMatch == -1) {

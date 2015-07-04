@@ -211,6 +211,7 @@ public class Patron extends User {
         if (firstAvail != null) {
             checkedOut.addToRear(firstAvail);
             reserveQueue.remove(index);
+            firstAvail.removeOneCopyFromInventory();
         }
         return firstAvail;
     }
