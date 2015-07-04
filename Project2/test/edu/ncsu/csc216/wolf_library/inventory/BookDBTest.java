@@ -9,7 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * The book DB test runs tests on the book DB test to ensure it properly creates
+ * The book DB test runs tests on the book DB test to ensure it properly creates the book object. The methods also
+ * tests the exceptions.
  * 
  * @author Marcus
  *
@@ -21,6 +22,7 @@ public class BookDBTest {
     BookDB testDB;
 
     /**
+     * The set up method instantiates the classes needed for the tests.
      * @throws java.lang.Exception
      */
     @Before

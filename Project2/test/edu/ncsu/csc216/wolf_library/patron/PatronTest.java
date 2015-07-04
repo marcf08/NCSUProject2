@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_library.patron;
 
 import static org.junit.Assert.*;
@@ -12,6 +9,9 @@ import edu.ncsu.csc216.wolf_library.inventory.Book;
 import edu.ncsu.csc216.wolf_library.util.Constants;
 
 /**
+ * The patron test checks several patron names to ensure the patrons can
+ * only be created if they are in a valid format per the specifications. For that reason
+ * the tests also throw several exceptions.
  * @author Marcus
  *
  */

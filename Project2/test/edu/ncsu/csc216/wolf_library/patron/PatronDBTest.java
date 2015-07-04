@@ -19,6 +19,7 @@ public class PatronDBTest {
     private PatronDB testDB;
     
     /**
+     * The set up method instantiates the classes needed for the tests.
      * @throws java.lang.Exception
      */
     @Before

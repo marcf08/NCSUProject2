@@ -8,8 +8,6 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 /**
  *The library lending system test ensures the library lending system functions appropriately in logging
  *patrons in and out.

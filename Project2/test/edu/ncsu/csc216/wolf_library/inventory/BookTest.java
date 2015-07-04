@@ -5,13 +5,13 @@ package edu.ncsu.csc216.wolf_library.inventory;
 
 import static org.junit.Assert.*;
 
-import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- *The 
+ *The book test tries to create several books in order to test the exceptions of the book constructor
+ *and its related methods.
  * @author Marcus
  *
  */
@@ -28,6 +28,7 @@ public class BookTest {
     
     
     /**
+     * The set up method instantiates the classes needed for the tests.
      * @throws java.lang.Exception
      */
     @Before

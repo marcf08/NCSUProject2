@@ -23,6 +23,7 @@ public class LibraryAccountSystemTest {
      */
     private PatronDB patronTestList;
     /**
+     * The set up method instantiates the classes needed for the tests.
      * @throws java.lang.Exception
      */
     @Before
