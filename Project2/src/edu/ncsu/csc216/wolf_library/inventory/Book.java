@@ -3,6 +3,7 @@
  */
 package edu.ncsu.csc216.wolf_library.inventory;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_library.util.Constants;
@@ -15,7 +16,7 @@ import edu.ncsu.csc216.wolf_library.util.Constants;
  * @author Marcus
  *
  */
-public class Book implements Comparable<Book> {
+public class Book implements Comparable <Book> {
     /**
      * The info string gives information about the book, including the author
      * and title.
@@ -36,7 +37,12 @@ public class Book implements Comparable<Book> {
     public Book(String info) {
         Scanner fromFile = new Scanner(info); // Create a scanner to read the
                                               // line from a file
-        String numAvailable = fromFile.next(); // Get the number available in
+        
+        if (!fromFile.hasNextInt()) {
+            throw new IllegalArgumentException(Constants.EXP_BAD_FILE);
+        }
+        
+        int numAvailable = fromFile.nextInt(); // Get the number available in
                                                // String form
 
         // The scanner has now advanced past the numbers available (if it
@@ -46,27 +52,13 @@ public class Book implements Comparable<Book> {
         String titleAuthor = "";
         while (fromFile.hasNext()) {
             titleAuthor = titleAuthor + fromFile.next() + " ";
-
-     
+    
         }
-        
-      
-        
 
         fromFile.close(); // Done with the scanner at this point
 
-        // Attempt to parse the copies available as an int
-        try {
-            if (Integer.parseInt(numAvailable) < 0) { // If it's negative, set
-                                                      // it to zero
-                this.numAvailable = 0;
-            } else {
-                this.numAvailable = Integer.parseInt(numAvailable);
-            }
-        } catch (IllegalArgumentException e) {
-            
-        }
-
+        this.numAvailable = numAvailable;
+        
         // Invalid book title represented by the null String
         if (titleAuthor.equals("")) {
             throw new IllegalArgumentException();
@@ -78,7 +70,7 @@ public class Book implements Comparable<Book> {
     }
 
     /**
-     * The get info method is a simple getting for the information about a book.
+     * The get info method is a simple getter for the information about a book.
      * 
      * @return info the title and author information for the selected book
      */
