@@ -68,10 +68,6 @@ public class PatronTest {
      * Instance field for bad index (too high)
      */
     private int badIndexTooHigh = 27;
-    /**
-     * Instance field for okay index
-     */
-    private int justRight = 1;
 
     /**
      * The set up method creates several books and patrons for testing.
