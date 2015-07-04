@@ -27,6 +27,7 @@ public class LibraryLendingSystem implements LendingManager {
     /**
      * The constructor instantiates the library lending system given an input
      * String for a file.
+     * @param input the file's input
      */
     public LibraryLendingSystem(String input) {
         bookInventory = new BookDB(input);
@@ -84,7 +85,6 @@ public class LibraryLendingSystem implements LendingManager {
      * 
      * @return the patron's user id who is currently logged in
      */
-    // TODO: FIX THIS
     public String getCurrentUserId() {
         if (accounts.isAdminLoggedIn()) {
             return Constants.ADMIN;
@@ -119,7 +119,6 @@ public class LibraryLendingSystem implements LendingManager {
             throw new IllegalStateException(Constants.EXP_LLS_PATRON_NOT_LOGGED_IN);
         }
         
-        //TODO: REMOVE
         accounts.getCurrentPatron().reserve(bookInventory.findItemAt(position));
     }
 
@@ -170,6 +169,7 @@ public class LibraryLendingSystem implements LendingManager {
     /**
      * The traverse checked out queue shows a string of the books in the checked
      * out queue.
+     * @return the patron's checked out queue
      */
     public String traverseCheckedOut() {
         if (!accounts.isPatronLoggedIn()) {
@@ -181,8 +181,7 @@ public class LibraryLendingSystem implements LendingManager {
     /**
      * The return item method returns a book to the inventory.
      * 
-     * @param the
-     *            position of the item in the list of checked out items
+     * @param position the position of the item in the list of checked out items
      */
     public void returnItem(int position) {
         if (!accounts.isPatronLoggedIn()) {

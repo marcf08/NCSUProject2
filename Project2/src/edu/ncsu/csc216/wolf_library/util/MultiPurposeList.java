@@ -11,6 +11,12 @@ import java.util.NoSuchElementException;
  * @author Marcus
  *
  */
+/**
+ * The multipurpose list class instantiates a multipurpose list given a generic type T.
+ * @author Marcus
+ *
+ * @param <T>T a generic type
+ */
 public class MultiPurposeList<T> {
     Node head; // The head node creates a reference to the first element in the
                // list
@@ -169,8 +175,6 @@ public class MultiPurposeList<T> {
         }
 
         return removed;
-
-        // TODO: Where to return the removed book?
 
     }
 

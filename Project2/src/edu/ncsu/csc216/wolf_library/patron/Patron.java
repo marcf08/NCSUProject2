@@ -37,6 +37,9 @@ public class Patron extends User {
     /**
      * The patron constructor constructs a patron given an id and password. It
      * calls the parent constructor from the abstract parent class.
+     * @param id the patron's id
+     * @param password the patron's password
+     * @param maxCheckedOut the maximum number of books the patron can check out
      */
     public Patron(String id, String password, int maxCheckedOut) {
         super(id, password);

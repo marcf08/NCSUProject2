@@ -6,8 +6,9 @@ package edu.ncsu.csc216.wolf_library.patron;
 import edu.ncsu.csc216.wolf_library.util.Constants;
 
 /**
- * @author Marcus The abstract class user creates the base functionality for
- *         creating users to interact with the library system.
+ *  The abstract class user creates the base functionality for
+ *   creating users to interact with the library system.
+ * @author Marcus
  */
 public abstract class User  implements Comparable<User> {
     /**
@@ -22,6 +23,8 @@ public abstract class User  implements Comparable<User> {
     /**
      * The constructor populates the fields of the parents. The children classes
      * will call this constructor in order to implement their functionality.
+     * @param id the user's id
+     * @param password the user's password
      */
     public User(String id, String password) {
         if (id == null) {
@@ -43,7 +46,7 @@ public abstract class User  implements Comparable<User> {
             throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
         this.id = id;
-        this.password = password.hashCode(); // TODO: does this work?
+        this.password = password.hashCode();
     }
 
     /**
@@ -99,6 +102,7 @@ public abstract class User  implements Comparable<User> {
 
     /**
      * The hash code method is used to secure the password.
+     * @return result the result of the hashing operation
      */
     public int hashCode() {
         final int prime = 31;

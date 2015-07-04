@@ -169,7 +169,7 @@ public class PatronDB {
                 }
             }
         }
-        return -1;// Indicate the account was not found
+        return -1; // Indicate the account was not found
     }
 
     /**
@@ -224,7 +224,7 @@ public class PatronDB {
                 list[psn + 1] = list[psn];
                 psn--;
             }
-            list[psn+1] = toAdd;
+            list[psn + 1] = toAdd;
             size++;
         }
     }

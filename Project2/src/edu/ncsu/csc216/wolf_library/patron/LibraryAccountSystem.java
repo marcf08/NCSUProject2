@@ -52,6 +52,9 @@ public class LibraryAccountSystem implements AccountManager {
      *
      */
     class Admin extends User {
+        /**
+         * The admin classes is the class that controls the patron accounts.
+         */
         public Admin() {
             // Per the specifications, the user has the
             // username and password set to admin
@@ -62,6 +65,8 @@ public class LibraryAccountSystem implements AccountManager {
     /**
      * The login method accepts login credentials from the dialog box. It then
      * sets the current patron to the one whose credentials were verified.
+     * @param id the user's id
+     * @param password the user's password
      */
     public void login(String id, String password) {
         if (patronLoggedIn) {
@@ -77,7 +82,7 @@ public class LibraryAccountSystem implements AccountManager {
             adminLoggedIn = true;   
         //Check if it's a patron
         } else if (!adminLoggedIn){
-            currentPatron =patronList.verifyPatron(id, password); 
+            currentPatron = patronList.verifyPatron(id, password); 
             this.patronLoggedIn = true;
         //Otherwise, throw an exception
         } else {
@@ -150,7 +155,6 @@ public class LibraryAccountSystem implements AccountManager {
         } catch (Exception e) {
             // Uses the most general exception since the new patron can
             // throw multiple types of exceptions
-            // TODO: How to handle this (redisplay dialog box?)
         }
 
     }
@@ -158,6 +162,7 @@ public class LibraryAccountSystem implements AccountManager {
     /**
      * The cancel account method removes a patron if the particular id supplied
      * matches a patron in the list.
+     * @param id the user's id to cancel
      */
     public void cancelAccount(String id) {
         if (!adminLoggedIn) {
@@ -166,7 +171,8 @@ public class LibraryAccountSystem implements AccountManager {
         try {
             patronList.cancelAccount(id);
         } catch (IllegalArgumentException e) {
-            // TODO: Handle?
+            //The program should continue to run even
+            //if a patron cannot be cancelled
         }
 
     }

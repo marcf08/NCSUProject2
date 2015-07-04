@@ -32,6 +32,7 @@ public class Book implements Comparable<Book> {
      * in the form <number-in-stock><whitespace><book-info>. The book object
      * parses this string into the parts it needs to construct the book for use
      * by the Wolf Library program.
+     * @param info the book's author and title information
      */
     public Book(String info) {
         Scanner fromFile = new Scanner(info); // Create a scanner to read the
@@ -41,7 +42,7 @@ public class Book implements Comparable<Book> {
             throw new IllegalArgumentException(Constants.EXP_BAD_FILE);
         }
 
-        int numAvailable = fromFile.nextInt(); // Get the number available in
+        this.numAvailable = fromFile.nextInt(); // Get the number available in
         // String form
 
         // The scanner has now advanced past the numbers available (if it
@@ -56,7 +57,6 @@ public class Book implements Comparable<Book> {
 
         fromFile.close(); // Done with the scanner at this point
 
-        this.numAvailable = numAvailable;
 
         // Invalid book title represented by the null String
         if (titleAuthor.equals("")) {
