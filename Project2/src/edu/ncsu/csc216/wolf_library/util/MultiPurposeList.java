@@ -172,7 +172,10 @@ public class MultiPurposeList<T> {
             pos--;
         }
 
-        T removed = current.data;
+        T removed = null;
+        if (current.data != null) {
+            removed = current.data;
+        }
 
         if (current != null) { // current should point to the item to be removed
             if (current == head) { // remove item 0?
