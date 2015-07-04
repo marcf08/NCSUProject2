@@ -44,6 +44,9 @@ public class BookDBTest {
             fail(); // Should not get here
         } catch (IllegalArgumentException e) {
             // This should be thrown
+            if (secondTest != null) {
+                fail();
+            }
         }
     }
 

@@ -374,6 +374,9 @@ public class PatronTest {
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
             //This should be thrown
+            if (test != null) {
+                fail();
+            }
             
         }
         
