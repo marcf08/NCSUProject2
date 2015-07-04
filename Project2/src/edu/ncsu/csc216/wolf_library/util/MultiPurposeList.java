@@ -250,6 +250,9 @@ public class MultiPurposeList<T> {
      * the list.
      */
     public void resetIterator() {
+        if (isEmpty()) {
+            throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
+        }
         iterator = head;
     }
 
