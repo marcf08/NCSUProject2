@@ -51,6 +51,10 @@ public class MultiPurposeList<T> {
         if (iterator != null) {
             iterator.link = new Node(temp, iterator.link);
         }
+        
+        if (iterator == null) {
+            throw new NoSuchElementException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
+        }
 
         // Ensure we reset the iterator after the operation
         // Wouldn't want to leave it where it's at and then

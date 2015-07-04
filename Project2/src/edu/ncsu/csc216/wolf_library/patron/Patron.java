@@ -138,8 +138,9 @@ public class Patron extends User {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
        reserveQueue.addToRear(book);
-        if (nowCheckedOut < maxCheckedOut) {
+        if (nowCheckedOut <= maxCheckedOut) {
             removeFirstAvailable();
+            nowCheckedOut++;
         }
     }
 

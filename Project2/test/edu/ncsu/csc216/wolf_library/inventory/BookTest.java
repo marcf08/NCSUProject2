@@ -48,7 +48,7 @@ public class BookTest {
         //Test with null String
         Book test = null; 
         try {
-            test = new Book("");
+            test = new Book("1");
             fail(); //Should not make it here
         } catch (IllegalArgumentException e) {
             //This should get thrown
