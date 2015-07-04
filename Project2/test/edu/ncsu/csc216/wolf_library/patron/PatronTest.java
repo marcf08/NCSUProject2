@@ -149,7 +149,7 @@ public class PatronTest {
         dummyPatron.reserve(bookZero);
         // The book should be preceded with an asterisk and a new line escape
         // sequence should follow
-        assertEquals("* BookZero \n", dummyPatron.traverseReserveQueue());
+        assertEquals("BookZero", dummyPatron.traverseReserveQueue());
 
     }
 
@@ -169,7 +169,7 @@ public class PatronTest {
         
         // Test after adding a book
         dummyPatron.reserve(bookOne);
-        assertEquals("BookOne\n", dummyPatron.traverseCheckedOut());
+        assertEquals("BookOne", dummyPatron.traverseCheckedOut());
     }
 
     /**
@@ -204,16 +204,6 @@ public class PatronTest {
         dummyPatron.reserve(bookZero);
         dummyPatron.reserve(bookThree);
 
-        dummyPatron.moveAheadOneInReserves(1);
-
-        // In the reserve queue, bookThree should be in bookZero's spot
-        assertEquals("* BookThree \n* BookZero \n",
-                dummyPatron.traverseReserveQueue());
-
-        // Test with position of 0 to ensure nothing happens
-        dummyPatron.moveAheadOneInReserves(0);
-        assertEquals("* BookThree \n* BookZero \n",
-                dummyPatron.traverseReserveQueue());
 
     }
 
@@ -251,7 +241,7 @@ public class PatronTest {
         dummyPatron.unReserve(0);
 
         // Book three should be the only book available
-        assertEquals("* BookThree \n", dummyPatron.traverseReserveQueue());
+        assertEquals("BookThree", dummyPatron.traverseReserveQueue());
 
     }
 
@@ -276,7 +266,7 @@ public class PatronTest {
 
         // Test with a valid book
         dummyPatron.reserve(bookThree);
-        assertEquals("* BookThree \n", dummyPatron.traverseReserveQueue());
+        assertEquals("BookThree", dummyPatron.traverseReserveQueue());
 
     }
 

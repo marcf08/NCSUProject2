@@ -65,10 +65,10 @@ public class Patron extends User {
         String books = "";
         for (int i = 0; i < reserveQueue.size(); i++) {
             if (reserveQueue.lookAtItemN(i) != null) {
-                books = books + reserveQueue.lookAtItemN(i) + " \n";
+                books = books + reserveQueue.lookAtItemN(i).getInfo() + " \n";
             }
         }
-        return books;
+        return books.trim();
     }
 
     /**
@@ -81,10 +81,10 @@ public class Patron extends User {
         String books = "";
         for (int i = 0; i < checkedOut.size(); i++) {
             if (checkedOut.lookAtItemN(i) != null) {
-                books = books + checkedOut.lookAtItemN(i) + "\n";
+                books = books + checkedOut.lookAtItemN(i).getInfo() + "\n";
             }
         }
-        return books;
+        return books.trim();
     }
 
     /**
