@@ -36,7 +36,7 @@ public abstract class User  implements Comparable<User> {
         if (containsWhitespace(id.trim())) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_WHITESPACE);
         }
-        if (containsWhitespace(password.trim())) {
+        if (containsWhitespace(password)) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_WHITESPACE);
         }
         if (id.trim().length() == 0) {

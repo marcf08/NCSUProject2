@@ -68,12 +68,16 @@ public class MultiPurposeList<T> {
      * @return the data requested at a specific position
      */
     public T lookAtItemN(int pos) {
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
+        }
+        
         // Check the client's request to ensure it's a valid position
         if (pos >= size()) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
         if (pos < 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
 
         // If position is zero, return the head's data
@@ -144,7 +148,7 @@ public class MultiPurposeList<T> {
         }
 
         if (pos < 0) {
-            throw new IndexOutOfBoundsException(Constants.EXP_NO_MORE_VALUES_IN_LIST);
+            throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
         }
 
         // Special case for if the front item needs to be removed
