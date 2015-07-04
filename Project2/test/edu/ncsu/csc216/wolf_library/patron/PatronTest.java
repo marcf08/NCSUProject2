@@ -368,51 +368,72 @@ public class PatronTest {
     @Test
     public void testUser() {
       //Test with bad user id
+        Patron test = null;
         try {
-            Patron test = new Patron(badUserId, goodPassword, 1); //Calls user constructor from parent
+            test = new Patron(badUserId, goodPassword, 1); //Calls user constructor from parent
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
             //This should be thrown
+            
         }
         
         //Test with bad password
+        Patron testTwo = null;
         try {
-            Patron test = new Patron(goodUserId, badPassword, 1); //Calls user constructor from parent
+            testTwo = new Patron(goodUserId, badPassword, 1); //Calls user constructor from parent
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
             //This should be thrown
+            if (testTwo != null) {
+                fail();
+            }
         }
         
         //Test with null id
+        Patron testThree = null;
         try {
-            Patron test = new Patron(null, goodPassword, 1); //Calls user constructor from parent
+            testThree = new Patron(null, goodPassword, 1); //Calls user constructor from parent
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
             //This should be thrown
+            if (testThree != null) {
+                fail();
+            }
         }
         
         //Test with null password
+        Patron testFour = null;
         try {
-            Patron test = new Patron(goodUserId, null, 1); //Calls user constructor from parent
+            testFour = new Patron(goodUserId, null, 1); //Calls user constructor from parent
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
             //This should be thrown
+            if (testFour != null) {
+                fail();
+            }
         } 
         
         //Test id with empty string
+        Patron testFive = null;
         try {
-            Patron test = new Patron("", goodPassword, 1); //Calls user constructor from parent
+            testFive = new Patron("", goodPassword, 1); //Calls user constructor from parent
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
             //This should be thrown
+            if (testFive != null) {
+                fail();
+            }
         }
         
       //Test password with empty string
+        Patron testSix = null;
         try {
-            Patron test = new Patron(goodUserId, "", 1); //Calls user constructor from parent
+            testSix = new Patron(goodUserId, "", 1); //Calls user constructor from parent
             fail(); //Should not get here
         } catch (IllegalArgumentException e) {
-            //This should be thrown
+            if (testSix != null) {
+                fail();
+            }
         }
     
     }

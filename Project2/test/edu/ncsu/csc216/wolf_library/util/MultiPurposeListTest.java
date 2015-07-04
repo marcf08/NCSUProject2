@@ -212,7 +212,7 @@ public class MultiPurposeListTest {
     @Test
     public void testSize() {
         //Should be zero for an empty list
-        assertEquals(0,testList.size());
+        assertEquals(0, testList.size());
         
         String validZero = "0";
         String validOne = "1";
@@ -266,7 +266,7 @@ public class MultiPurposeListTest {
         
         testList.next(); //Move the iterator ahead one value, should be 1
         testList.resetIterator(); //Reset it
-        assertEquals("0", testList.next());//Should be 0, the first value
+        assertEquals("0", testList.next()); //Should be 0, the first value
     }
 
     /**

@@ -163,12 +163,11 @@ public class PatronDB {
             return -1;
         }
         for (int i = 0; i < size; i++) {
-            if ((list[i] != null)) {
-                if (id.equals(list[i].getId())) {
-                    return i;
+            if ((list[i] != null) && (id.equals(list[i].getId()))) {
+                return i;
                 }
             }
-        }
+
         return -1; // Indicate the account was not found
     }
 

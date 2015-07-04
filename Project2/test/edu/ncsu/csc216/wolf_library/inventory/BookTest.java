@@ -52,6 +52,9 @@ public class BookTest {
             fail(); //Should not make it here
         } catch (IllegalArgumentException e) {
             //This should get thrown
+            if (test != null) {
+                fail();
+            }
         }
         
         //Test with no number of copies
@@ -61,6 +64,9 @@ public class BookTest {
             fail(); //Should not make it here
         } catch (IllegalArgumentException e) {
             //This should get thrown
+            if (testTwo != null) {
+                fail();
+            }
         }
         
 
@@ -179,7 +185,7 @@ public class BookTest {
         assertEquals(0, alpha.compareTo(alphaTwo));
         
         //Should NOT be 0, books have different titles
-        assertNotEquals(0,alpha.compareTo(beta));
+        assertNotEquals(0, alpha.compareTo(beta));
         
         //Also should NOT be 0 when tested the other way around
         assertNotEquals(0, beta.compareTo(alpha));

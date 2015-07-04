@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_library.inventory;
 
 import static org.junit.Assert.*;
