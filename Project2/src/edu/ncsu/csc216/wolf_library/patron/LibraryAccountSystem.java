@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_library.patron;
 
 import edu.ncsu.csc216.wolf_library.util.Constants;
@@ -181,6 +178,6 @@ public class LibraryAccountSystem implements AccountManager {
      * @return a list of the accounts
      */
     public String listAcounts() {
-        return patronList.toString();
+        return patronList.listAccounts();
     }
 }
