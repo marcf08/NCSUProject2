@@ -82,7 +82,7 @@ public abstract class User  implements Comparable<User> {
      * @return the user's id
      */
     public String getId() {
-        return this.id;
+        return this.id.trim();
     }
 
     /**

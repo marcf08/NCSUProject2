@@ -149,6 +149,7 @@ public class MultiPurposeList<T> {
         // First ensure the position is valid
         if (pos >= size()) {
             throw new IndexOutOfBoundsException(Constants.EXP_INDEX_OUT_OF_BOUNDS);
+            
         }
 
         if (pos < 0) {

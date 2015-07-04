@@ -166,7 +166,7 @@ public class LibraryAccountSystem implements AccountManager {
      */
     public void cancelAccount(String id) {
         if (!adminLoggedIn) {
-            throw new IllegalStateException();
+            throw new IllegalStateException(Constants.EXP_ACCESS_DENIED);
         }
         try {
             patronList.cancelAccount(id);
