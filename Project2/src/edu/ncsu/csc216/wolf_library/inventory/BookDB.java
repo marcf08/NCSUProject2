@@ -46,7 +46,7 @@ public class BookDB {
 
         // Ensure the user has read access
         if (!inputFile.canRead()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(Constants.EXP_BAD_FILE);
         }
 
         // Set up the scanner to read from the input file
@@ -110,12 +110,11 @@ public class BookDB {
      * 
      * @return bookListing the listing of books in the database
      */
-    // TODO: REMOVE COUNT
     public String traverse() {
         String bookListing = "";
         int i = 0;
         while (i < books.size()) {
-            bookListing = bookListing + books.lookAtItemN(i) + "\n";
+            bookListing = bookListing + books.lookAtItemN(i).toString() + " \n";
             i++;
 
         }

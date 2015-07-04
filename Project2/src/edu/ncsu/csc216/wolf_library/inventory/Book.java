@@ -174,7 +174,7 @@ public class Book implements Comparable <Book> {
         Scanner bookInfo = new Scanner(second);
 
         // Deal with "a"
-        if (second.startsWith("a")) {
+        if (second.startsWith("a ")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
                 correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
@@ -185,7 +185,7 @@ public class Book implements Comparable <Book> {
         }
 
         // Deal with "an"
-        else if (second.startsWith("an")) {
+        else if (second.startsWith("an ")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
                 correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the
@@ -196,7 +196,7 @@ public class Book implements Comparable <Book> {
         }
 
         // Deal with "the"
-        else if (second.startsWith("the")) {
+        else if (second.startsWith("the ")) {
             bookInfo.next(); // Advance the scanner past the first token
             while (bookInfo.hasNext()) {
                 correctedInfo = correctedInfo + bookInfo.next() + " "; // Build the

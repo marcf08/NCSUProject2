@@ -62,7 +62,7 @@ public class Patron extends User {
         String books = "";
         for (int i = 0; i < reserveQueue.size(); i++) {
             if (reserveQueue.lookAtItemN(i) != null) {
-                books = books + reserveQueue.lookAtItemN(i).toString() + "\n";
+                books = books + reserveQueue.lookAtItemN(i).toString() + " \n";
             }
         }
         return books;
@@ -134,10 +134,7 @@ public class Patron extends User {
         if (book == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
-        // Check to see if the book exists in either of the lists, if not, add
-        // it to the rear
        reserveQueue.addToRear(book);
-
         if (nowCheckedOut < maxCheckedOut) {
             removeFirstAvailable();
         }

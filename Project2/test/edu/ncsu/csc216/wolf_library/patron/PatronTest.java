@@ -170,10 +170,10 @@ public class PatronTest {
         // Test prior to adding books when the method should return an empty
         // string
         assertEquals("", dummyPatron.traverseCheckedOut());
-
+        
         // Test after adding a book
         dummyPatron.reserve(bookOne);
-        assertEquals("BookOne \n", dummyPatron.traverseCheckedOut());
+        assertEquals("BookOne\n", dummyPatron.traverseCheckedOut());
     }
 
     /**
@@ -211,7 +211,6 @@ public class PatronTest {
         dummyPatron.moveAheadOneInReserves(1);
 
         // In the reserve queue, bookThree should be in bookZero's spot
-
         assertEquals("* BookThree \n* BookZero \n",
                 dummyPatron.traverseReserveQueue());
 
@@ -279,13 +278,10 @@ public class PatronTest {
             // This should be thrown
         }
 
-        // Test for exception with a valid book
-        dummyPatron.reserve(bookTwo);
-        assertEquals("BookTwo \n", dummyPatron.traverseCheckedOut());
+        // Test with a valid book
+        dummyPatron.reserve(bookThree);
+        assertEquals("* BookThree \n", dummyPatron.traverseReserveQueue());
 
-        // Test exception for a book that already exists
-        dummyPatron.reserve(bookTwo);
-        assertEquals("BookTwo \n", dummyPatron.traverseCheckedOut());
     }
 
     /**
@@ -308,8 +304,6 @@ public class PatronTest {
         dummyPatron.closeAccount();
         
         //Ensure both queues are empty
-        System.out.println(dummyPatron.traverseCheckedOut());
-        System.out.println(dummyPatron.traverseReserveQueue());
         assertEquals("", dummyPatron.traverseCheckedOut());
         assertEquals("", dummyPatron.traverseReserveQueue());
     }
