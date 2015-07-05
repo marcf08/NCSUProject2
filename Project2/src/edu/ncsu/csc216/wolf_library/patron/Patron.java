@@ -137,10 +137,9 @@ public class Patron extends User {
         if (book == null) {
             throw new IllegalArgumentException(Constants.EXP_PATRON_NULL_BOOK);
         }
-       reserveQueue.addToRear(book);
+        reserveQueue.addToRear(book);
         if (nowCheckedOut < maxCheckedOut) {
             removeFirstAvailable();
-            nowCheckedOut++;
         }
     }
 
@@ -188,6 +187,11 @@ public class Patron extends User {
         // Check it back in
         toReturn.backToInventory();
         nowCheckedOut--;
+        
+        if (nowCheckedOut < maxCheckedOut) {
+            //Autocheck out
+            removeFirstAvailable();
+        }
     }
 
     /**
@@ -212,6 +216,7 @@ public class Patron extends User {
             checkedOut.addToRear(firstAvail);
             reserveQueue.remove(index);
             firstAvail.removeOneCopyFromInventory();
+            nowCheckedOut++;
         }
         return firstAvail;
     }
