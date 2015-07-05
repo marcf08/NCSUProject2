@@ -65,7 +65,7 @@ public class Patron extends User {
         String books = "";
         for (int i = 0; i < reserveQueue.size(); i++) {
             if (reserveQueue.lookAtItemN(i) != null) {
-                books = books + reserveQueue.lookAtItemN(i).getInfo() + " \n";
+                books = books + reserveQueue.lookAtItemN(i).getInfo() + "\n";
             }
         }
         return books.trim();
