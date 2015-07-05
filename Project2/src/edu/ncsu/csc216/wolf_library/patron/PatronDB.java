@@ -114,7 +114,7 @@ public class PatronDB {
             // Null strings are illegal per the specifications
             throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
-        if (password.equals("")) {
+        if (password.equals(" ")) {
             // Null strings are illegal per the specifications
             throw new IllegalArgumentException(Constants.EXP_PATRON_EMPTY);
         }
@@ -124,8 +124,6 @@ public class PatronDB {
         // If we make it here, the new patron is unique and valid
         // Add it alphabetically
         insert(new Patron(id, password, maxAllowed));
-
-
     }
 
     /**
